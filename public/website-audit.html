@@ -310,7 +310,8 @@ function updateSummary() {
       if (isRecommended) recs.push('• ' + title.textContent.trim());
       else fails.push('• ' + title.textContent.trim());
     } else if (sel.value === 'concern') {
-      concerns.push('• ' + title.textContent.trim());
+      if (isRecommended) recs.push('• ' + title.textContent.trim());
+      else concerns.push('• ' + title.textContent.trim());
     }
   });
   const taC = document.getElementById('ta-critical');
