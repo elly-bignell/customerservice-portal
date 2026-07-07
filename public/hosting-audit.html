@@ -12,6 +12,13 @@
     .no-print { display: none !important; }
     .card { box-shadow: none !important; border: 1px solid #e5e5e5 !important; }
     .header, .section-header, .prereq-header, .urgency, .score-badge, .access-warning { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    /* Page break rules */
+    .section { break-before: page; }
+    .section-header { break-after: avoid; }
+    .prereq-header { break-after: avoid; }
+    .audit-item { break-inside: avoid; }
+    .flag-item { break-inside: avoid; }
+    .summary-section { break-before: page; break-inside: avoid; }
   }
   .header { background: #1a1a1a; color: white; padding: 28px 40px; display: flex; justify-content: space-between; align-items: center; }
   .header-left { display: flex; align-items: center; gap: 20px; }
