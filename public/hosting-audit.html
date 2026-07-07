@@ -16,7 +16,8 @@
     .audit-item { break-inside: avoid; }
     .flag-item { break-inside: avoid; }
     .summary-section { break-before: page; }
-    .summary-box textarea { height: auto !important; overflow: visible !important; }
+    .summary-box textarea { display: none !important; }
+    .print-mirror { display: block !important; }
   }
   .header { background: #1a1a1a; color: white; padding: 28px 40px; display: flex; justify-content: space-between; align-items: center; }
   .header-left { display: flex; align-items: center; gap: 20px; }
@@ -88,6 +89,7 @@
   .summary-box label { display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #999; margin-bottom: 7px; }
   .summary-box textarea { width: 100%; min-height: 90px; height: auto; overflow: hidden; border: 1.5px solid #e8e8e8; border-radius: 6px; padding: 10px; font-size: 13px; font-family: inherit; resize: none; outline: none; color: #1a1a1a; }
   .summary-box textarea:focus { border-color: #ff7043; }
+  .print-mirror { display: none; white-space: pre-wrap; font-size: 13px; font-family: inherit; color: #1a1a1a; line-height: 1.6; min-height: 60px; border: 1.5px solid #e8e8e8; border-radius: 6px; padding: 10px; }
   .print-btn { background: #1a1a1a; color: white; border: none; padding: 11px 26px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; }
   .print-btn:hover { background: #333; }
   .footer { background: #1a1a1a; color: white; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; }
@@ -465,10 +467,10 @@
     <div class="score-card concern-card"><div class="num" id="concernCount">0</div><div class="lbl">Concerns</div></div>
   </div>
   <div class="summary-grid">
-    <div class="summary-box"><label>Critical Issues / Fixes Required</label><textarea id="ta-critical" placeholder="Auto-populated from failed items..."></textarea></div>
-    <div class="summary-box"><label>Areas of Concern</label><textarea id="ta-concerns" placeholder="Auto-populated from concern items..."></textarea></div>
-    <div class="summary-box"><label>Recommendations</label><textarea id="ta-recommendations" placeholder="List any recommended improvements..."></textarea></div>
-    <div class="summary-box"><label>Additional Notes</label><textarea id="ta-notes" placeholder="Any other notes for the account manager..."></textarea></div>
+    <div class="summary-box"><label>Critical Issues / Fixes Required</label><textarea id="ta-critical" placeholder="Auto-populated from failed items..."></textarea><div class="print-mirror" id="pm-critical"></div></div>
+    <div class="summary-box"><label>Areas of Concern</label><textarea id="ta-concerns" placeholder="Auto-populated from concern items..."></textarea><div class="print-mirror" id="pm-concerns"></div></div>
+    <div class="summary-box"><label>Recommendations</label><textarea id="ta-recommendations" placeholder="List any recommended improvements..."></textarea><div class="print-mirror" id="pm-recommendations"></div></div>
+    <div class="summary-box"><label>Additional Notes</label><textarea id="ta-notes" placeholder="Any other notes for the account manager..."></textarea><div class="print-mirror" id="pm-notes"></div></div>
   </div>
 </div>
 <div style="display:flex; justify-content:flex-end; padding: 20px 0 36px;" class="no-print">
@@ -509,22 +511,38 @@ function recalc() {
   document.getElementById('totalScore').textContent = p;
   document.getElementById('totalTests').textContent = p + f + c;
 }
+function syncMirrors() {
+  [['ta-critical','pm-critical'],['ta-concerns','pm-concerns'],['ta-recommendations','pm-recommendations'],['ta-notes','pm-notes']].forEach(([taId, pmId]) => {
+    const ta = document.getElementById(taId);
+    const pm = document.getElementById(pmId);
+    if (ta && pm) pm.textContent = ta.value;
+  });
+}
 function updateSummary() {
   const active = document.getElementById('wp-audit').style.display !== 'none' ? 'wp-audit' : 'other-audit';
-  const fails = [], concerns = [];
+  const fails = [], concerns = [], recs = [];
   document.querySelectorAll('#' + active + ' .audit-item').forEach(item => {
     const sel = item.querySelector('.status-select');
     const title = item.querySelector('.item-title');
     if (!sel || !title) return;
-    if (sel.value === 'fail') fails.push('• ' + title.textContent.trim());
-    else if (sel.value === 'concern') concerns.push('• ' + title.textContent.trim());
+    const isRecommended = !!item.querySelector('.urgency-recommended');
+    if (sel.value === 'fail') {
+      if (isRecommended) recs.push('• ' + title.textContent.trim());
+      else fails.push('• ' + title.textContent.trim());
+    } else if (sel.value === 'concern') {
+      concerns.push('• ' + title.textContent.trim());
+    }
   });
   const taC = document.getElementById('ta-critical');
   const taX = document.getElementById('ta-concerns');
+  const taR = document.getElementById('ta-recommendations');
   taC.value = fails.join('\n');
   taX.value = concerns.join('\n');
+  taR.value = recs.join('\n');
   autoResize(taC);
   autoResize(taX);
+  autoResize(taR);
+  syncMirrors();
 }
 function autoResize(ta) {
   ta.style.height = 'auto';
@@ -532,19 +550,7 @@ function autoResize(ta) {
 }
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.summary-box textarea').forEach(ta => {
-    ta.addEventListener('input', () => autoResize(ta));
-  });
-});
-window.addEventListener('beforeprint', () => {
-  document.querySelectorAll('.summary-box textarea').forEach(ta => {
-    ta.style.height = ta.scrollHeight + 'px';
-    ta.style.overflow = 'visible';
-  });
-});
-window.addEventListener('afterprint', () => {
-  document.querySelectorAll('.summary-box textarea').forEach(ta => {
-    ta.style.overflow = 'hidden';
-    autoResize(ta);
+    ta.addEventListener('input', () => { autoResize(ta); syncMirrors(); });
   });
 });
 </script>
