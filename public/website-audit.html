@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Website Audit — Marketing Sweet</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, "system-ui", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background: #fafafa; color: #1a1a1a; font-size: 14px; }
+  @media print {
+    body { background: #fff; font-size: 12px; }
+    .no-print { display: none !important; }
+    .card { box-shadow: none !important; border: 1px solid #e5e5e5 !important; }
+    .header, .section-header, .urgency, .score-badge, .info-banner { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+  .header { background: #1a1a1a; color: white; padding: 28px 40px; display: flex; justify-content: space-between; align-items: center; }
+  .header-left { display: flex; align-items: center; gap: 20px; }
+  .logo-mark { width: 40px; height: 40px; background: #ff7043; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+  .header-text .brand { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #999; margin-bottom: 3px; }
+  .header-text h1 { font-size: 22px; font-weight: 700; }
+  .header-text p { color: #888; font-size: 12px; margin-top: 2px; }
+  .score-badge { background: #ff7043; color: white; border-radius: 10px; padding: 10px 18px; text-align: center; min-width: 110px; }
+  .score-badge .score-num { font-size: 26px; font-weight: 800; line-height: 1; }
+  .score-badge .score-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; opacity: 0.85; }
+  .info-banner { background: #e8f5e9; border-left: 4px solid #43a047; padding: 14px 40px; display: flex; align-items: center; gap: 12px; }
+  .info-banner p { font-size: 13px; }
+  .info-banner strong { color: #2e7d32; }
+  .client-info { background: white; padding: 20px 40px; border-bottom: 1px solid #e8e8e8; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .info-field label { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: #999; margin-bottom: 5px; font-weight: 600; }
+  .info-field input { width: 100%; border: none; border-bottom: 1.5px solid #e0e0e0; padding: 4px 0; font-size: 14px; color: #1a1a1a; outline: none; background: transparent; font-family: inherit; }
+  .info-field input:focus { border-bottom-color: #ff7043; }
+  .main { padding: 28px 40px; max-width: 980px; margin: 0 auto; }
+  .section { margin-bottom: 20px; }
+  .section-header { background: #1a1a1a; color: white; padding: 11px 20px; border-radius: 8px 8px 0 0; display: flex; justify-content: space-between; align-items: center; }
+  .section-header h2 { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+  .section-score { font-size: 12px; color: #aaa; }
+  .card { background: white; border-radius: 0 0 8px 8px; border: 1px solid #e8e8e8; border-top: none; overflow: hidden; }
+  .section-note { font-size: 11px; color: #888; padding: 9px 20px; background: #fafafa; border-bottom: 1px solid #f0f0f0; font-style: italic; }
+  .audit-item { display: grid; grid-template-columns: 1fr 110px 90px; align-items: start; padding: 14px 20px; border-bottom: 1px solid #f5f5f5; gap: 16px; }
+  .audit-item:last-child { border-bottom: none; }
+  .item-title { font-weight: 600; font-size: 13px; margin-bottom: 3px; color: #1a1a1a; }
+  .item-desc { font-size: 12px; color: #666; line-height: 1.55; margin-bottom: 4px; }
+  .item-how { font-size: 11px; color: #999; line-height: 1.5; margin-bottom: 5px; }
+  .item-pass { font-size: 11px; color: #5fb31a; font-weight: 600; }
+  .item-note { width: 100%; border: none; border-bottom: 1px solid #eee; font-size: 11px; color: #555; padding: 4px 0; margin-top: 6px; outline: none; background: transparent; font-family: inherit; }
+  .item-note:focus { border-bottom-color: #ff7043; }
+  .tool-tag { display: inline-block; background: #f5f5f5; color: #666; border-radius: 4px; padding: 2px 7px; font-size: 10px; font-weight: 600; margin-bottom: 5px; }
+  .status-select { width: 100px; padding: 6px 8px; border: 1.5px solid #e0e0e0; border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer; outline: none; text-align: center; font-family: inherit; background: white; }
+  .status-pass { border-color: #5fb31a; color: #5fb31a; background: #f0fae5; }
+  .status-fail { border-color: #e53935; color: #e53935; background: #fce8e8; }
+  .status-concern { border-color: #f59e0b; color: #d97706; background: #fffbeb; }
+  .status-na { border-color: #bbb; color: #888; }
+  .urgency { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+  .urgency-critical { background: #fce8e8; color: #c62828; }
+  .urgency-important { background: #fffbeb; color: #d97706; }
+  .urgency-recommended { background: #f0fae5; color: #4a8f13; }
+  .summary-section { background: white; border-radius: 8px; border: 1px solid #e8e8e8; padding: 28px; margin-top: 28px; }
+  .summary-section h2 { font-size: 15px; font-weight: 700; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid #ff7043; }
+  .score-overview { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 24px; }
+  .score-card { background: #fafafa; border-radius: 8px; padding: 16px; text-align: center; border: 1px solid #f0f0f0; }
+  .score-card .num { font-size: 30px; font-weight: 800; line-height: 1; }
+  .score-card .lbl { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: #999; margin-top: 4px; font-weight: 600; }
+  .pass-card .num { color: #5fb31a; }
+  .fail-card .num { color: #e53935; }
+  .concern-card .num { color: #f59e0b; }
+  .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .summary-box label { display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #999; margin-bottom: 7px; }
+  .summary-box textarea { width: 100%; height: 90px; border: 1.5px solid #e8e8e8; border-radius: 6px; padding: 10px; font-size: 13px; font-family: inherit; resize: vertical; outline: none; color: #1a1a1a; }
+  .summary-box textarea:focus { border-color: #ff7043; }
+  .print-btn { background: #1a1a1a; color: white; border: none; padding: 11px 26px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; }
+  .print-btn:hover { background: #333; }
+  .footer { background: #1a1a1a; color: white; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; }
+  .footer p { font-size: 12px; color: #666; max-width: 480px; line-height: 1.6; }
+  .footer-right { text-align: right; }
+  .footer-right label { display: block; font-size: 10px; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .footer input { background: transparent; border: none; border-bottom: 1px solid #444; color: white; font-size: 13px; text-align: right; outline: none; width: 220px; font-family: inherit; }
+  .footer input::placeholder { color: #555; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <div class="logo-mark">🍬</div>
+    <div class="header-text">
+      <div class="brand">Marketing Sweet</div>
+      <h1>Website Audit</h1>
+      <p>Frontend health check — completed at client onboarding</p>
+    </div>
+  </div>
+  <div class="score-badge">
+    <div class="score-num" id="totalScore">0</div>
+    <div class="score-label">of <span id="totalTests">0</span> passed</div>
+  </div>
+</div>
+
+<div class="info-banner">
+  <span>✅</span>
+  <p><strong>No login required.</strong> This audit is completed from the front end of the site using publicly available tools and browser inspection. No backend access is needed.</p>
+</div>
+
+<div class="client-info">
+  <div class="info-field"><label>Business Name</label><input type="text" placeholder="XYZ Business"></div>
+  <div class="info-field"><label>Website URL</label><input type="text" placeholder="www.example.com.au"></div>
+  <div class="info-field"><label>Date of Audit</label><input type="date"></div>
+  <div class="info-field"><label>Completed By</label><input type="text" placeholder="Your name"></div>
+</div>
+
+<div class="main">
+
+  <!-- 1. SEO HEALTH -->
+  <div class="section">
+    <div class="section-header"><h2>1. SEO Health</h2><span class="section-score" id="s1">0/13</span></div>
+    <div class="card">
+      <div class="audit-item">
+        <div><div class="tool-tag">pagespeed.web.dev</div><div class="item-title">Page Load Speed</div><div class="item-desc">Slow load speeds directly hurt SEO rankings and cause visitors to leave before the page loads. Use the homepage URL.</div><div class="item-pass">Pass: Performance score 70 or above (green/amber)</div><input class="item-note" type="text" placeholder="Score recorded: "></div>
+        <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
+        <span class="urgency urgency-important">Important</span>
+      </div>
+      <div class="audit-item">
+        <div><div class="tool-tag">pagespeed.web.dev</div><div class="item-title">Core Web Vitals</div><div class="item-desc">Google uses Core Web Vitals as a direct ranking signal. LCP (Largest Contentful Paint), CLS (Cumulative Layout Shift) and INP (Interaction to Next Paint) measure real user experience.</div><div class="item-how">Run pagespeed.web.dev on the homepage and check the Core Web Vitals section. Note each individual score.</div><div class="item-pass">Pass: All three Core Web Vitals pass (green)</div><input class="item-note" type="text" placeholder="LCP: / CLS: / INP: "></div>
+        <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
+        <span class="urgency urgency-important">Important</span>
+      </div>
+      <div class="audit-item">
+        <div><div class="item-title">HTTPS Redirect Active</div><div class="item-desc">Browsing to the http:// version of the site should automatically redirect to the secure https:// version. If it does not, some visitors will see browser security warnings.</div><div class="item-how">Type http://www.example.com.au in the address bar and confirm it redirects to https://</div><div class="item-pass">Pass: http:// redirects to https://</div><input class="item-note" type="text" placeholder="Notes: "></div>
+        <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
+        <span class="urgency urgency-critical">Critical</span>
+      </div>
+      <div class="audit-item">
+        <div><div class="item-title">Mobile Friendly</div><div class="item-desc">Google uses mobile-first indexing, so a site that does not display correctly on mobile will rank poorly even on desktop searches.</div><div class="item-how">Use Chrome DevTools (F12) to switch to a mobile viewport, or use search.google.com/test/mobile-friendly</div><div class="item-pass">Pass: Site displays correctly on mobile</div><input class="item-note" type="text" placeholder="Notes: "></div>
+        <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
+        <span class="urgency urgency-critical">Critical</span>
+      </div>
+      <div class="audit-item">
+        <div><div class="item-title">No-Index Tag Not Set</div><div class="item-desc">A no-index meta tag tells Google not to include the page in search results. This is sometimes left on sites after development and blocks all organic rankings.</div><div class="item-how">Right-click &gt; View Page Source &gt; search for "noindex". Also check in SE Rankings under the Site Audit.</div><div class="item-pass">Pass: No noindex meta tag found on key pages</div><input class="item-note" type="text" placeholder="Notes: "></div>
+        <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
+        <span class="urgency urgency-critical">Critical</span>
+      </div>
+      <div class="audit-item">
+        <div><div class="item-title">Canonical Tags Present</div><div class="item-desc">Canonical tags tell Google which version of a page is the primary one, preventing duplicate content issues from hurting rankings.</div><div class="item-how">Right-click &gt; View Page Source &gt; search for "canonical"</div><div class="item-pass">Pass: Canonical tags found in page source</div><input class="item-note" type="text" placeholder="Notes: "></div>
+        <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
+        <span class="urgency urgency-important">Important</span>
+      </div>
+      <div class="audit-item">
+        <div><div class="item-title">robots.txt Present</div><div class="item-desc">The robots.txt file tells search engine crawlers which pages to crawl and which to ignore. A missing or misconfigured file can block the entire site from being indexed.</div><div class="item-how">Browse to www.example.com.au/robots.txt</div><div class="item-pass">Pass: robots.txt file exists and is correctly configured</div><input class="item-note" type="text" placeholder="Notes: "></div>
+        <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
+        <span class="urgency urgency-important">Important</span>
+      </div>
+      <div class="audit-item">
+        <div><div class="item-title">XML Sitemap Present</div><div class="item-desc">An XML sitemap helps Google discover and index all pages on the site, especially new or updated pages added as part of the campaign.</div><div class="item-how">Browse to www.example.com.au/sitemap.xml or /sitemap_index.xml</div><div class="item-pass">Pass: Sitemap accessible and lists key pages</div><input class="item-note" type="text" placeholder="Sitemap URL: "></div>
+        <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
+        <span class="urgency urgency-important">Important</span>
+      </div>
+      <div class="audit-item">
+        <div><div class="tool-tag">SE Rankings</div><div class="item-title">SEO Audit Score</div><div class="item-desc">A baseline health score to benchmark against as the campaign progresses.</div><div class="item-how">Run a site audit in SE Rankings and note the overall score.</div><div class="item-pass">Pass: Score 70 or above</div><input class="item-note" type="text" placeholder="Score recorded: "></div>
+        <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
+        <span class="urgency urgency-important">Important</span>
+      </div>
+      <div class="audit-item">
+        <div><div class="item-title">Duplicate Content Check</div><div class="item-desc">Duplicate content across pages dilutes ranking authority and can lead to Google choosing the wrong page to rank.</div><div class="item-how">In SE Rankings Site Audit, check the Duplicate Content report.</div><div class="item-pass">Pass: No significant duplicate content issues flagged</div><input class="item-note" type="text" placeholder="Notes: "></div>
+        <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
+        <span class="urgency urgency-important">Important</span>
+      </div>
+      <div class="audit-item">
+        <div><div class="tool-tag">SE Rankings</div><div class="item-title">Meta Titles &amp; Descriptions</div><div class="item-desc">Missing or duplicate meta titles and descriptions reduce click-through rates from search results and signal poor on-page SEO.</div><div class="item-how">Check SE Rankings Site Audit &gt; On-Page for missing or duplicate meta titles and descriptions across key pages.</div><div class="item-pass">Pass: Key pages have unique meta titles and descriptions</div><input class="item-note" type="text" placeholder="Pages missing meta data: "></div>
+        <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
+        <span class="urgency urgency-important">Important</span>
+      </div>
+      <div class="audit-item">
+        <div><div class="tool-tag">GEO Targetly</div><div class="item-title">IP Redirection (Geo-Targeting) Check</div><div class="item-desc">Some sites automatically redirect visitors based on their location. This can prevent Marketing Sweet team members from auditing the Australian version of the site and can cause issues with how Google crawls and ranks pages.</div><div class="item-how">Use the GEO Targetly Chrome Extension to check if IP-based redirection is active on the site.</div><div class="item-pass">Pass: No IP-based redirection detected, or client has confirmed it is intentional and correctly configured</div><input class="item-note" type="text" placeholder="Notes: "></div>
+        <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
+        <span class="urgency urgency-recommended">Recommended</span>
+      </div>
+      <div class="audit-item">
+        <div><div class="tool-tag">search.google.com/test/rich-results</div><div class="item-title">Schema / Structured Data</div><div class="item-desc">Schema markup helps Google understand what each page is about and can unlock rich results (star ratings, FAQs, business info) in search — improving click-through rates significantly.</div><div class="item-how">Run the Google Rich Results Test on the homepage and a service page. Note what schema types are present, if any.</div><div class="item-pass">Pass: Schema markup present on key pages (e.g. LocalBusiness, Service, FAQPage)</div><input class="item-note" type="text" placeholder="Schema types found: "></div>
+        <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
+        <span class="urgency urgency-recommended">Recommended</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. CONVERSION TRACKING -->
+  <div class="section">
+    <div class="section-header"><h2>2. Conversion Tracking</h2><span class="section-score" id="s2">0/3</span></div>
+    <div class="card">
+      <div class="section-note">Right-click &gt; View Page Source and search the terms below, or use the Google Tag Assistant Chrome extension</div>
+      <div class="audit-item">
+        <div><div class="item-title">GA4 Tag Present</div><div class="item-desc">Google Analytics 4 is required to track all website traffic, user behaviour and campaign performance.</div><div class="item-how">View page source and search for "G-". Or run Google Tag Assistant on the page.</div><div class="item-pass">Pass: GA4 tag (G-XXXXXXX) found on site</div><input class="item-note" type="text" placeholder="Tag ID found: "></div>
+        <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
+        <span class="urgency urgency-critical">Critical</span>
+      </div>
+      <div class="audit-item">
+        <div><div class="item-title">GTM Tag Present</div><div class="item-desc">Google Tag Manager makes it straightforward to deploy and manage tracking tags without requiring developer access each time.</div><div class="item-how">View page source and search for "GTM-".</div><div class="item-pass">Pass: GTM tag (GTM-XXXXXXX) found on site</div><input class="item-note" type="text" placeholder="Container ID found: "></div>
+        <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
+        <span class="urgency urgency-important">Important</span>
+      </div>
+      <div class="audit-item">
+        <div><div class="item-title">No Legacy UA Tags</div><div class="item-desc">Old Universal Analytics (UA) tags left in the site code can conflict with GA4 tracking and cause data issues.</div><div class="item-how">View page source and search for "UA-".</div><div class="item-pass">Pass: No UA- tracking IDs found in page source</div><input class="item-note" type="text" placeholder="Notes: "></div>
+        <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
+        <span class="urgency urgency-important">Important</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. UX & FRONT-END TESTING -->
+  <div class="section">
+    <div class="section-header"><h2>3. UX &amp; Front-End Testing</h2><span class="section-score" id="s3">0/5</span></div>
+    <div class="card">
+      <div class="section-note">Complete manual testing on both desktop and mobile</div>
+      <div class="audit-item">
+        <div><div class="item-title">Contact Forms Working</div><div class="item-desc">A broken contact form means the site is actively losing leads without the client knowing. Test the form end to end and confirm submission emails are received.</div><div class="item-how">Complete and submit the main contact form using a test email address. Confirm the submission email is received and a thank-you message is shown.</div><div class="item-pass">Pass: Form submits successfully and confirmation is received</div><input class="item-note" type="text" placeholder="Form location tested and result: "></div>
+        <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
+        <span class="urgency urgency-critical">Critical</span>
+      </div>
+      <div class="audit-item">
+        <div><div class="item-title">Phone Number Links Working</div><div class="item-desc">On mobile, phone numbers should be tappable links that trigger a call. Non-linked phone numbers are a significant source of lost leads on mobile devices.</div><div class="item-how">On a mobile device, tap the phone number on the site. It should prompt a call.</div><div class="item-pass">Pass: Phone numbers are clickable on mobile and trigger a call</div><input class="item-note" type="text" placeholder="Notes: "></div>
+        <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
+        <span class="urgency urgency-important">Important</span>
+      </div>
+      <div class="audit-item">
+        <div><div class="item-title">Mobile Display</div><div class="item-desc">Check the overall mobile layout is functional and presentable. Look for overlapping text, broken sections or content that extends off screen.</div><div class="item-how">View the site on a mobile device or use Chrome DevTools responsive mode. Check homepage, service pages and contact page.</div><div class="item-pass">Pass: Site displays correctly on mobile with no layout issues</div><input class="item-note" type="text" placeholder="Issues found: "></div>
+        <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
+        <span class="urgency urgency-important">Important</span>
+      </div>
+      <div class="audit-item">
+        <div><div class="item-title">Navigation Links Working</div><div class="item-desc">Broken navigation links frustrate visitors and waste the crawl budget Google allocates to the site.</div><div class="item-how">Click through all header navigation links and confirm each one loads the correct page with no 404 errors.</div><div class="item-pass">Pass: All navigation links load without errors</div><input class="item-note" type="text" placeholder="Broken links found: "></div>
+        <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
+        <span class="urgency urgency-important">Important</span>
+      </div>
+      <div class="audit-item">
+        <div><div class="item-title">Image Alt Text Spot Check</div><div class="item-desc">Alt text describes images to search engines and screen readers. Missing alt text is a missed opportunity for keyword relevance and an accessibility issue that can affect rankings.</div><div class="item-how">Right-click a main image &gt; Inspect &gt; check for an alt attribute. Or run SE Rankings Site Audit and look for missing image alt text.</div><div class="item-pass">Pass: Key images have relevant, descriptive alt text</div><input class="item-note" type="text" placeholder="Issues found: "></div>
+        <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
+        <span class="urgency urgency-recommended">Recommended</span>
+      </div>
+      <div class="audit-item">
+        <div><div class="item-title">Site Visually Outdated</div><div class="item-desc">A site that looks significantly dated can undermine trust with visitors even if the content is strong, directly reducing conversion rates. This is a subjective but important observation to flag at onboarding — if a redesign is warranted, the earlier it is raised with the client the better.</div><div class="item-how">Review the site as a first-time visitor would. Consider: does the design look current? Does it reflect the quality of the client's business? Would a prospect trust it?</div><div class="item-pass">Pass: Site design is current and reflects the client's brand well</div><input class="item-note" type="text" placeholder="Notes / recommendation: "></div>
+        <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
+        <span class="urgency urgency-recommended">Recommended</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="summary-section">
+    <h2>Audit Summary</h2>
+    <div class="score-overview">
+      <div class="score-card pass-card"><div class="num" id="passCount">0</div><div class="lbl">Passed</div></div>
+      <div class="score-card fail-card"><div class="num" id="failCount">0</div><div class="lbl">Failed</div></div>
+      <div class="score-card concern-card"><div class="num" id="concernCount">0</div><div class="lbl">Concerns</div></div>
+    </div>
+    <div class="summary-grid">
+      <div class="summary-box"><label>Critical Issues / Fixes Required</label><textarea placeholder="List any critical failures needing immediate attention..."></textarea></div>
+      <div class="summary-box"><label>Areas of Concern</label><textarea placeholder="List any concerns or items to monitor..."></textarea></div>
+      <div class="summary-box"><label>Recommendations</label><textarea placeholder="List any recommended improvements..."></textarea></div>
+      <div class="summary-box"><label>Additional Notes</label><textarea placeholder="Any other notes for the account manager..."></textarea></div>
+    </div>
+  </div>
+  <div style="display:flex; justify-content:flex-end; padding: 20px 0 36px;" class="no-print">
+    <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+  </div>
+</div><!-- end main -->
+
+<div class="footer">
+  <p>By completing this audit, I confirm all checks have been carried out accurately and I take responsibility for the findings recorded.</p>
+  <div class="footer-right"><label>Completed by</label><input type="text" placeholder="Your name — DD/MM/YYYY"></div>
+</div>
+
+<script>
+function setStatus(sel) {
+  const v = sel.value;
+  sel.className = 'status-select' + (v ? ' status-' + v : '');
+  recalc();
+}
+function recalc() {
+  let p = 0, f = 0, c = 0;
+  document.querySelectorAll('.status-select').forEach(s => {
+    if (s.value === 'pass') p++;
+    else if (s.value === 'fail') f++;
+    else if (s.value === 'concern') c++;
+  });
+  document.getElementById('passCount').textContent = p;
+  document.getElementById('failCount').textContent = f;
+  document.getElementById('concernCount').textContent = c;
+  document.getElementById('totalScore').textContent = p;
+  document.getElementById('totalTests').textContent = p + f + c;
+}
+</script>
+</body>
+</html>
