@@ -18,6 +18,7 @@
     .summary-section { break-before: page; }
     .summary-box textarea { display: none !important; }
     .print-mirror { display: block !important; }
+    .item-note { height: auto !important; overflow: visible !important; }
   }
   .header { background: #1a1a1a; color: white; padding: 28px 40px; display: flex; justify-content: space-between; align-items: center; }
   .header-left { display: flex; align-items: center; gap: 20px; }
@@ -59,8 +60,9 @@
   .item-desc { font-size: 12px; color: #666; line-height: 1.55; margin-bottom: 4px; }
   .item-how { font-size: 11px; color: #999; line-height: 1.5; margin-bottom: 5px; }
   .item-pass { font-size: 11px; color: #5fb31a; font-weight: 600; }
-  .item-note { width: 100%; border: none; border-bottom: 1px solid #eee; font-size: 11px; color: #555; padding: 4px 0; margin-top: 6px; outline: none; background: transparent; font-family: inherit; }
+  .item-note { width: 100%; border: none; border-bottom: 1px solid #eee; font-size: 11px; color: #555; padding: 4px 0; margin-top: 6px; outline: none; background: transparent; font-family: inherit; resize: none; overflow: hidden; min-height: 22px; line-height: 1.5; display: block; }
   .item-note:focus { border-bottom-color: #ff7043; }
+  .item-note-label { display: block; font-size: 10px; color: #999; margin-top: 6px; margin-bottom: 1px; }
   .tool-tag { display: inline-block; background: #f5f5f5; color: #666; border-radius: 4px; padding: 2px 7px; font-size: 10px; font-weight: 600; margin-bottom: 5px; }
   .ms-tag { display: inline-block; background: #fff0ec; color: #e64a19; border-radius: 4px; padding: 2px 7px; font-size: 10px; font-weight: 700; margin-bottom: 5px; letter-spacing: 0.3px; }
   .status-select { width: 100px; padding: 6px 8px; border: 1.5px solid #e0e0e0; border-radius: 6px; font-size: 11px; font-weight: 600; cursor: pointer; outline: none; text-align: center; font-family: inherit; background: white; }
@@ -146,7 +148,7 @@
     </div>
     <div class="prereq-card">
       <div class="audit-item">
-        <div><div class="item-title">Admin Level Access Confirmed</div><div class="item-desc">Lower access levels prevent completing key audit and campaign tasks — including installing plugins, editing theme files, and managing tracking codes. If admin access cannot be confirmed, stop here and escalate to the account manager before proceeding.</div><div class="item-how">Check Users &gt; Your Profile in the WordPress dashboard and confirm the role shown is Administrator.</div><div class="item-pass">Pass: Administrator access confirmed — proceed with audit</div><input class="item-note" type="text" placeholder="Access level confirmed: "></div>
+        <div><div class="item-title">Admin Level Access Confirmed</div><div class="item-desc">Lower access levels prevent completing key audit and campaign tasks — including installing plugins, editing theme files, and managing tracking codes. If admin access cannot be confirmed, stop here and escalate to the account manager before proceeding.</div><div class="item-how">Check Users &gt; Your Profile in the WordPress dashboard and confirm the role shown is Administrator.</div><div class="item-pass">Pass: Administrator access confirmed — proceed with audit</div><textarea class="item-note" placeholder="Access level confirmed: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-critical">Critical</span>
       </div>
@@ -159,22 +161,22 @@
     <div class="card">
       <div class="section-note">Tools &gt; Site Health &gt; Info tab in the WordPress dashboard</div>
       <div class="audit-item">
-        <div><div class="item-title">WordPress Version</div><div class="item-desc">An outdated WordPress version leads to security vulnerabilities, plugin conflicts and poor performance.</div><div class="item-how">Tools &gt; Site Health &gt; Info &gt; WordPress section</div><div class="item-pass">Pass: Version 6.6 or higher</div><input class="item-note" type="text" placeholder="Version found: "></div>
+        <div><div class="item-title">WordPress Version</div><div class="item-desc">An outdated WordPress version leads to security vulnerabilities, plugin conflicts and poor performance.</div><div class="item-how">Tools &gt; Site Health &gt; Info &gt; WordPress section</div><div class="item-pass">Pass: Version 6.6 or higher</div><textarea class="item-note" placeholder="Version found: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-critical">Critical</span>
       </div>
       <div class="audit-item">
-        <div><div class="item-title">PHP Version</div><div class="item-desc">Outdated PHP causes security vulnerabilities, compatibility issues and slows down the entire site. PHP 7.4 has been end of life since 2022.</div><div class="item-how">Tools &gt; Site Health &gt; Info &gt; Server section</div><div class="item-pass">Pass: PHP 8.2 or higher</div><input class="item-note" type="text" placeholder="Version found: "></div>
+        <div><div class="item-title">PHP Version</div><div class="item-desc">Outdated PHP causes security vulnerabilities, compatibility issues and slows down the entire site. PHP 7.4 has been end of life since 2022.</div><div class="item-how">Tools &gt; Site Health &gt; Info &gt; Server section</div><div class="item-pass">Pass: PHP 8.2 or higher</div><textarea class="item-note" placeholder="Version found: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-critical">Critical</span>
       </div>
       <div class="audit-item">
-        <div><div class="item-title">Hosting Location</div><div class="item-desc">Overseas servers result in slower load speeds for Australian visitors, directly impacting SEO rankings.</div><div class="item-how">Use the IP Domain Country Flag Chrome Extension on the homepage</div><div class="item-pass">Pass: Hosted in Australia (AU)</div><input class="item-note" type="text" placeholder="Location found: "></div>
+        <div><div class="item-title">Hosting Location</div><div class="item-desc">Overseas servers result in slower load speeds for Australian visitors, directly impacting SEO rankings.</div><div class="item-how">Use the IP Domain Country Flag Chrome Extension on the homepage</div><div class="item-pass">Pass: Hosted in Australia (AU)</div><textarea class="item-note" placeholder="Location found: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-important">Important</span>
       </div>
       <div class="audit-item">
-        <div><div class="tool-tag">tools.pingdom.com</div><div class="item-title">Load Speed</div><div class="item-desc">Slow load speeds directly impact SEO rankings and visitor experience.</div><div class="item-pass">Pass: 3 seconds or under</div><input class="item-note" type="text" placeholder="Speed recorded: "></div>
+        <div><div class="tool-tag">tools.pingdom.com</div><div class="item-title">Load Speed</div><div class="item-desc">Slow load speeds directly impact SEO rankings and visitor experience.</div><div class="item-pass">Pass: 3 seconds or under</div><textarea class="item-note" placeholder="Speed recorded: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-important">Important</span>
       </div>
@@ -186,37 +188,37 @@
     <div class="section-header"><h2>2. Security &amp; Backups</h2><span class="section-score" id="s2">0/6</span></div>
     <div class="card">
       <div class="audit-item">
-        <div><div class="item-title">Security Plugin</div><div class="item-desc">Without a security plugin the site is exposed to malware, brute force attacks and login threats.</div><div class="item-how">Check Plugins section for Wordfence or equivalent</div><div class="item-pass">Pass: Wordfence (or equivalent) installed and active</div><input class="item-note" type="text" placeholder="Plugin found: "></div>
+        <div><div class="item-title">Security Plugin</div><div class="item-desc">Without a security plugin the site is exposed to malware, brute force attacks and login threats.</div><div class="item-how">Check Plugins section for Wordfence or equivalent</div><div class="item-pass">Pass: Wordfence (or equivalent) installed and active</div><textarea class="item-note" placeholder="Plugin found: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-critical">Critical</span>
       </div>
       <div class="audit-item">
-        <div><div class="item-title">Backup Solution</div><div class="item-desc">Without automated backups a site crash or hack could result in permanent data loss. If a backup plugin is installed, the last backup date is visible in the plugin dashboard. Note: if backups are managed at server level by the host, access to the hosting control panel will be needed to confirm.</div><div class="item-how">Check Plugins section for UpdraftPlus or equivalent. If installed, open the plugin to confirm scheduled backups and last successful backup date.</div><div class="item-pass">Pass: Backup plugin active with recent scheduled backups confirmed</div><input class="item-note" type="text" placeholder="Plugin found / last backup date: "></div>
+        <div><div class="item-title">Backup Solution</div><div class="item-desc">Without automated backups a site crash or hack could result in permanent data loss. If a backup plugin is installed, the last backup date is visible in the plugin dashboard. Note: if backups are managed at server level by the host, access to the hosting control panel will be needed to confirm.</div><div class="item-how">Check Plugins section for UpdraftPlus or equivalent. If installed, open the plugin to confirm scheduled backups and last successful backup date.</div><div class="item-pass">Pass: Backup plugin active with recent scheduled backups confirmed</div><textarea class="item-note" placeholder="Plugin found / last backup date: "></textarea></div>
         <select id="backup-select" class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-critical">Critical</span>
       </div>
       <div class="audit-item">
-        <div><div class="item-title">SSL Certificate Active</div><div class="item-desc">No SSL causes browser security warnings for visitors and poor SEO performance.</div><div class="item-how">Check the URL begins with https:// and that http:// redirects to https://</div><div class="item-pass">Pass: SSL active, http redirects to https</div><input class="item-note" type="text" placeholder="Notes: "></div>
+        <div><div class="item-title">SSL Certificate Active</div><div class="item-desc">No SSL causes browser security warnings for visitors and poor SEO performance.</div><div class="item-how">Check the URL begins with https:// and that http:// redirects to https://</div><div class="item-pass">Pass: SSL active, http redirects to https</div><textarea class="item-note" placeholder="Notes: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-critical">Critical</span>
       </div>
       <div class="audit-item">
-        <div><div class="item-title">SSL Expiry Date</div><div class="item-desc">An expired SSL certificate takes the site offline immediately and causes visitor-facing security warnings. Worth checking the renewal date even if currently active.</div><div class="item-how">Click the padlock icon in the browser address bar and check the certificate details for the expiry date.</div><div class="item-pass">Pass: SSL valid for more than 30 days</div><input class="item-note" type="text" placeholder="Expiry date: "></div>
+        <div><div class="item-title">SSL Expiry Date</div><div class="item-desc">An expired SSL certificate takes the site offline immediately and causes visitor-facing security warnings. Worth checking the renewal date even if currently active.</div><div class="item-how">Click the padlock icon in the browser address bar and check the certificate details for the expiry date.</div><div class="item-pass">Pass: SSL valid for more than 30 days</div><textarea class="item-note" placeholder="Expiry date: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-important">Important</span>
       </div>
       <div class="audit-item">
-        <div><div class="ms-tag">MS Non-Negotiable</div><div class="item-title">OneLogin</div><div class="item-desc">OneLogin is Marketing Sweet's required plugin for managing admin access. If it cannot be installed, a Marketing Sweet admin account must be added as a fallback.</div><div class="item-how">Check Plugins section for OneLogin. If not present, install it as part of onboarding. If unable to install, add customerservice@marketingsweet.com.au as an Admin user.</div><div class="item-pass">Pass: OneLogin installed and active</div><input id="onelogin-note" class="item-note" type="text" placeholder="Status / action taken: "></div>
+        <div><div class="ms-tag">MS Non-Negotiable</div><div class="item-title">OneLogin</div><div class="item-desc">OneLogin is Marketing Sweet's required plugin for managing admin access. If it cannot be installed, a Marketing Sweet admin account must be added as a fallback.</div><div class="item-how">Check Plugins section for OneLogin. If not present, install it as part of onboarding. If unable to install, add customerservice@marketingsweet.com.au as an Admin user.</div><div class="item-pass">Pass: OneLogin installed and active</div><textarea id="onelogin-note" class="item-note" placeholder="Status / action taken: "></textarea></div>
         <select class="status-select" onchange="setOneLoginStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-important">Important</span>
       </div>
       <div class="audit-item">
-        <div><div class="item-title">Two-Factor Authentication (2FA)</div><div class="item-desc">Without 2FA on admin logins, the site is vulnerable to brute force and credential stuffing attacks even if a security plugin is installed.</div><div class="item-how">Confirm 2FA is enabled for all administrator accounts — this may be via OneLogin or another method.</div><div class="item-pass">Pass: 2FA enabled for all administrator accounts</div><input class="item-note" type="text" placeholder="Method confirmed: "></div>
+        <div><div class="item-title">Two-Factor Authentication (2FA)</div><div class="item-desc">Without 2FA on admin logins, the site is vulnerable to brute force and credential stuffing attacks even if a security plugin is installed.</div><div class="item-how">Confirm 2FA is enabled for all administrator accounts — this may be via OneLogin or another method.</div><div class="item-pass">Pass: 2FA enabled for all administrator accounts</div><textarea class="item-note" placeholder="Method confirmed: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-important">Important</span>
       </div>
       <div class="audit-item">
-        <div><div class="item-title">Anti-Spam</div><div class="item-desc">Protects contact forms and comment sections from spam submissions — a security and data quality issue.</div><div class="item-how">Check Plugins section for Akismet or equivalent.</div><div class="item-pass">Pass: Akismet or equivalent installed and active</div><input class="item-note" type="text" placeholder="Plugin found: "></div>
+        <div><div class="item-title">Anti-Spam</div><div class="item-desc">Protects contact forms and comment sections from spam submissions — a security and data quality issue.</div><div class="item-how">Check Plugins section for Akismet or equivalent.</div><div class="item-pass">Pass: Akismet or equivalent installed and active</div><textarea class="item-note" placeholder="Plugin found: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-recommended">Recommended</span>
       </div>
@@ -229,32 +231,32 @@
     <div class="card">
       <div class="section-note">Appearance &gt; Themes and Plugins section in the WordPress dashboard</div>
       <div class="audit-item">
-        <div><div class="item-title">Theme Up to Date</div><div class="item-desc">An outdated theme leads to plugin conflicts and missing performance improvements from the developer.</div><div class="item-pass">Pass: Active theme fully up to date</div><input class="item-note" type="text" placeholder="Theme name and version: "></div>
+        <div><div class="item-title">Theme Up to Date</div><div class="item-desc">An outdated theme leads to plugin conflicts and missing performance improvements from the developer.</div><div class="item-pass">Pass: Active theme fully up to date</div><textarea class="item-note" placeholder="Theme name and version: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-important">Important</span>
       </div>
       <div class="audit-item">
-        <div><div class="item-title">Page Builder Available</div><div class="item-desc">A page builder such as Elementor or Divi makes it significantly faster to build and update SEO pages.</div><div class="item-pass">Pass: Page builder installed and active</div><input class="item-note" type="text" placeholder="Builder found: "></div>
+        <div><div class="item-title">Page Builder Available</div><div class="item-desc">A page builder such as Elementor or Divi makes it significantly faster to build and update SEO pages.</div><div class="item-pass">Pass: Page builder installed and active</div><textarea class="item-note" placeholder="Builder found: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-important">Important</span>
       </div>
       <div class="audit-item">
-        <div><div class="item-title">Page Builder Up to Date</div><div class="item-desc">An outdated page builder is one of the most common causes of frontend layout breaks and plugin conflicts. Ensure the active page builder plugin is on the latest version.</div><div class="item-how">Check Plugins section for the active page builder (e.g. Elementor, Divi, WPBakery) and confirm it is up to date.</div><div class="item-pass">Pass: Active page builder plugin fully up to date</div><input class="item-note" type="text" placeholder="Builder name and version: "></div>
+        <div><div class="item-title">Page Builder Up to Date</div><div class="item-desc">An outdated page builder is one of the most common causes of frontend layout breaks and plugin conflicts. Ensure the active page builder plugin is on the latest version.</div><div class="item-how">Check Plugins section for the active page builder (e.g. Elementor, Divi, WPBakery) and confirm it is up to date.</div><div class="item-pass">Pass: Active page builder plugin fully up to date</div><textarea class="item-note" placeholder="Builder name and version: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-important">Important</span>
       </div>
       <div class="audit-item">
-        <div><div class="item-title">Multiple Page Builders Check</div><div class="item-desc">Multiple page builders installed simultaneously is a common red flag. It bloats the site, slows it down and causes unpredictable conflicts. Identify the predominant builder so the team knows which to work in.</div><div class="item-how">Check the Plugins section for multiple page builders (e.g. Elementor, Divi, WPBakery, Beaver Builder). If more than one is active, flag it.</div><div class="item-pass">Pass: Only one page builder active. Note the predominant builder below.</div><input class="item-note" type="text" placeholder="Builders found / predominant builder: "></div>
+        <div><div class="item-title">Multiple Page Builders Check</div><div class="item-desc">Multiple page builders installed simultaneously is a common red flag. It bloats the site, slows it down and causes unpredictable conflicts. Identify the predominant builder so the team knows which to work in.</div><div class="item-how">Check the Plugins section for multiple page builders (e.g. Elementor, Divi, WPBakery, Beaver Builder). If more than one is active, flag it.</div><div class="item-pass">Pass: Only one page builder active. Note the predominant builder below.</div><textarea class="item-note" placeholder="Builders found / predominant builder: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-important">Important</span>
       </div>
       <div class="audit-item">
-        <div><div class="item-title">No Inactive Themes</div><div class="item-desc">Inactive themes add unnecessary clutter, use server space and can introduce security vulnerabilities.</div><div class="item-pass">Pass: No inactive themes present</div><input class="item-note" type="text" placeholder="Inactive themes found: "></div>
+        <div><div class="item-title">No Inactive Themes</div><div class="item-desc">Inactive themes add unnecessary clutter, use server space and can introduce security vulnerabilities.</div><div class="item-pass">Pass: No inactive themes present</div><textarea class="item-note" placeholder="Inactive themes found: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-recommended">Recommended</span>
       </div>
       <div class="audit-item">
-        <div><div class="item-title">Child Theme in Use</div><div class="item-desc">If custom code changes have been made directly to the parent theme, a WordPress theme update will wipe all customisations instantly. A child theme protects against this.</div><div class="item-how">Under Appearance &gt; Themes, check if the active theme is a child theme (usually labelled "[Theme Name] Child").</div><div class="item-pass">Pass: Custom changes are in a child theme</div><input class="item-note" type="text" placeholder="Notes: "></div>
+        <div><div class="item-title">Child Theme in Use</div><div class="item-desc">If custom code changes have been made directly to the parent theme, a WordPress theme update will wipe all customisations instantly. A child theme protects against this.</div><div class="item-how">Under Appearance &gt; Themes, check if the active theme is a child theme (usually labelled "[Theme Name] Child").</div><div class="item-pass">Pass: Custom changes are in a child theme</div><textarea class="item-note" placeholder="Notes: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-important">Important</span>
       </div>
@@ -267,62 +269,62 @@
     <div class="card">
       <div class="section-note">Plugins section in the WordPress dashboard</div>
       <div class="audit-item">
-        <div><div class="item-title">All Plugins Up to Date</div><div class="item-desc">Out of date plugins cause security issues, theme conflicts and unexpected behaviour across the site.</div><div class="item-pass">Pass: All active plugins fully up to date</div><input class="item-note" type="text" placeholder="Plugins needing update: "></div>
+        <div><div class="item-title">All Plugins Up to Date</div><div class="item-desc">Out of date plugins cause security issues, theme conflicts and unexpected behaviour across the site.</div><div class="item-pass">Pass: All active plugins fully up to date</div><textarea class="item-note" placeholder="Plugins needing update: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-important">Important</span>
       </div>
       <div class="audit-item">
-        <div><div class="item-title">No Unlicensed Plugins</div><div class="item-desc">Unlicensed plugins do not receive security updates, leaving the site exposed to vulnerabilities. They can also cause legal issues for the client.</div><div class="item-how">In the Plugins section, check for any plugins showing licence warnings or "licence key required" notices.</div><div class="item-pass">Pass: All active plugins are properly licensed</div><input class="item-note" type="text" placeholder="Unlicensed plugins found: "></div>
+        <div><div class="item-title">No Unlicensed Plugins</div><div class="item-desc">Unlicensed plugins do not receive security updates, leaving the site exposed to vulnerabilities. They can also cause legal issues for the client.</div><div class="item-how">In the Plugins section, check for any plugins showing licence warnings or "licence key required" notices.</div><div class="item-pass">Pass: All active plugins are properly licensed</div><textarea class="item-note" placeholder="Unlicensed plugins found: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-important">Important</span>
       </div>
       <div class="audit-item">
-        <div><div class="ms-tag">MS Non-Negotiable</div><div class="item-title">Activity Log</div><div class="item-desc">Tracks all user actions on the site — essential for troubleshooting and security monitoring. Marketing Sweet installs this on all client sites.</div><div class="item-how">Check Plugins section for WP Activity Log or equivalent. Install if not present.</div><div class="item-pass">Pass: Activity log plugin installed and active</div><input class="item-note" type="text" placeholder="Plugin found / action taken: "></div>
+        <div><div class="ms-tag">MS Non-Negotiable</div><div class="item-title">Activity Log</div><div class="item-desc">Tracks all user actions on the site — essential for troubleshooting and security monitoring. Marketing Sweet installs this on all client sites.</div><div class="item-how">Check Plugins section for WP Activity Log or equivalent. Install if not present.</div><div class="item-pass">Pass: Activity log plugin installed and active</div><textarea class="item-note" placeholder="Plugin found / action taken: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-important">Important</span>
       </div>
       <div class="audit-item">
-        <div><div class="item-title">SendGrid / SMTP</div><div class="item-desc">Without SMTP, contact form submissions and system notifications often fail to deliver or land in spam.</div><div class="item-pass">Pass: SendGrid or SMTP plugin installed and active</div><input class="item-note" type="text" placeholder="Plugin found: "></div>
+        <div><div class="item-title">SendGrid / SMTP</div><div class="item-desc">Without SMTP, contact form submissions and system notifications often fail to deliver or land in spam.</div><div class="item-pass">Pass: SendGrid or SMTP plugin installed and active</div><textarea class="item-note" placeholder="Plugin found: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-important">Important</span>
       </div>
       <div class="audit-item">
-        <div><div class="item-title">Image Optimisation</div><div class="item-desc">Unoptimised images are one of the most common causes of slow page load speeds.</div><div class="item-pass">Pass: ShortPixel or equivalent installed and active</div><input class="item-note" type="text" placeholder="Plugin found: "></div>
+        <div><div class="item-title">Image Optimisation</div><div class="item-desc">Unoptimised images are one of the most common causes of slow page load speeds.</div><div class="item-pass">Pass: ShortPixel or equivalent installed and active</div><textarea class="item-note" placeholder="Plugin found: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-important">Important</span>
       </div>
       <div class="audit-item">
-        <div><div class="item-title">Caching Plugin</div><div class="item-desc">Caching stores a version of the site so pages load faster for returning visitors. Note: if the hosting environment provides server-side caching (e.g. LiteSpeed or managed WordPress hosting), a separate caching plugin may conflict — confirm before installing.</div><div class="item-how">Check Plugins section for LiteSpeed Cache, WP Rocket or equivalent. Confirm with the client or host whether server-side caching is already in place.</div><div class="item-pass">Pass: Caching in place — either via plugin or confirmed server-side</div><input class="item-note" type="text" placeholder="Plugin found / server-side confirmed: "></div>
+        <div><div class="item-title">Caching Plugin</div><div class="item-desc">Caching stores a version of the site so pages load faster for returning visitors. Note: if the hosting environment provides server-side caching (e.g. LiteSpeed or managed WordPress hosting), a separate caching plugin may conflict — confirm before installing.</div><div class="item-how">Check Plugins section for LiteSpeed Cache, WP Rocket or equivalent. Confirm with the client or host whether server-side caching is already in place.</div><div class="item-pass">Pass: Caching in place — either via plugin or confirmed server-side</div><textarea class="item-note" placeholder="Plugin found / server-side confirmed: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-important">Important</span>
       </div>
       <div class="audit-item">
-        <div><div class="item-title">Redirection Plugin</div><div class="item-desc">Handles 404 errors and redirects broken URLs, protecting SEO rankings and improving user experience.</div><div class="item-pass">Pass: Redirection plugin installed and active</div><input class="item-note" type="text" placeholder="Plugin found: "></div>
+        <div><div class="item-title">Redirection Plugin</div><div class="item-desc">Handles 404 errors and redirects broken URLs, protecting SEO rankings and improving user experience.</div><div class="item-pass">Pass: Redirection plugin installed and active</div><textarea class="item-note" placeholder="Plugin found: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-important">Important</span>
       </div>
       <div class="audit-item">
-        <div><div class="item-title">Contact Form Plugin</div><div class="item-desc">A reliable contact form plugin is essential for capturing leads from the website.</div><div class="item-pass">Pass: Ninja Forms, Gravity Forms or CF7 installed and active</div><input class="item-note" type="text" placeholder="Plugin found: "></div>
+        <div><div class="item-title">Contact Form Plugin</div><div class="item-desc">A reliable contact form plugin is essential for capturing leads from the website.</div><div class="item-pass">Pass: Ninja Forms, Gravity Forms or CF7 installed and active</div><textarea class="item-note" placeholder="Plugin found: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-important">Important</span>
       </div>
       <div class="audit-item">
-        <div><div class="item-title">Form Storage</div><div class="item-desc">Without form storage, any submitted leads that fail to send via email are permanently lost.</div><div class="item-pass">Pass: Form entries saved in backend (Elementor, Divi or equivalent)</div><input class="item-note" type="text" placeholder="Storage method: "></div>
+        <div><div class="item-title">Form Storage</div><div class="item-desc">Without form storage, any submitted leads that fail to send via email are permanently lost.</div><div class="item-pass">Pass: Form entries saved in backend (Elementor, Divi or equivalent)</div><textarea class="item-note" placeholder="Storage method: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-recommended">Recommended</span>
       </div>
       <div class="audit-item">
-        <div><div class="item-title">Database Optimisation Plugin</div><div class="item-desc">Over time, WordPress databases accumulate clutter — post revisions, transients, spam — which can slow the site down.</div><div class="item-how">Check Plugins section for WP-Optimize or equivalent.</div><div class="item-pass">Pass: Database optimisation plugin installed and active</div><input class="item-note" type="text" placeholder="Plugin found: "></div>
+        <div><div class="item-title">Database Optimisation Plugin</div><div class="item-desc">Over time, WordPress databases accumulate clutter — post revisions, transients, spam — which can slow the site down.</div><div class="item-how">Check Plugins section for WP-Optimize or equivalent.</div><div class="item-pass">Pass: Database optimisation plugin installed and active</div><textarea class="item-note" placeholder="Plugin found: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-recommended">Recommended</span>
       </div>
       <div class="audit-item">
-        <div><div class="item-title">Tracking Code Manager Plugin</div><div class="item-desc">A dedicated plugin for managing GA4 and GTM scripts keeps tracking codes safe when theme edits are made and simplifies future troubleshooting.</div><div class="item-how">Check Plugins section for Tracking Code Manager or equivalent (e.g. Insert Headers and Footers).</div><div class="item-pass">Pass: Tracking code management plugin installed and active</div><input class="item-note" type="text" placeholder="Plugin found: "></div>
+        <div><div class="item-title">Tracking Code Manager Plugin</div><div class="item-desc">A dedicated plugin for managing GA4 and GTM scripts keeps tracking codes safe when theme edits are made and simplifies future troubleshooting.</div><div class="item-how">Check Plugins section for Tracking Code Manager or equivalent (e.g. Insert Headers and Footers).</div><div class="item-pass">Pass: Tracking code management plugin installed and active</div><textarea class="item-note" placeholder="Plugin found: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-important">Important</span>
       </div>
       <div class="audit-item">
-        <div><div class="item-title">No Missing API Keys Causing Errors</div><div class="item-desc">Missing API keys (e.g. for Google Maps, reCAPTCHA or third-party integrations) can cause broken maps, failing forms or console errors that affect site performance and trust signals.</div><div class="item-how">Browse key pages on the site and check the browser console (F12 &gt; Console) for any API key errors.</div><div class="item-pass">Pass: No API key errors visible on the site</div><input class="item-note" type="text" placeholder="Errors found: "></div>
+        <div><div class="item-title">No Missing API Keys Causing Errors</div><div class="item-desc">Missing API keys (e.g. for Google Maps, reCAPTCHA or third-party integrations) can cause broken maps, failing forms or console errors that affect site performance and trust signals.</div><div class="item-how">Browse key pages on the site and check the browser console (F12 &gt; Console) for any API key errors.</div><div class="item-pass">Pass: No API key errors visible on the site</div><textarea class="item-note" placeholder="Errors found: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-important">Important</span>
       </div>
@@ -334,27 +336,27 @@
     <div class="section-header"><h2>5. Access &amp; CMS Capability</h2><span class="section-score" id="s5">0/5</span></div>
     <div class="card">
       <div class="audit-item">
-        <div><div class="item-title">Global Navigation Set &amp; Editable</div><div class="item-desc">The site's header navigation should be managed as a single global component — meaning one edit updates it across every page automatically. If the navigation is hardcoded into individual page templates instead, adding new SEO pages to the menu requires editing every template separately, which is a significant time cost. Confirm the nav is global and that we can edit it.</div><div class="item-how">Appearance &gt; Menus (classic) or via the page builder's global header settings. Attempt to edit the navigation and confirm changes reflect site-wide.</div><div class="item-pass">Pass: Navigation is set globally and is editable</div><input class="item-note" type="text" placeholder="Method / notes: "></div>
+        <div><div class="item-title">Global Navigation Set &amp; Editable</div><div class="item-desc">The site's header navigation should be managed as a single global component — meaning one edit updates it across every page automatically. If the navigation is hardcoded into individual page templates instead, adding new SEO pages to the menu requires editing every template separately, which is a significant time cost. Confirm the nav is global and that we can edit it.</div><div class="item-how">Appearance &gt; Menus (classic) or via the page builder's global header settings. Attempt to edit the navigation and confirm changes reflect site-wide.</div><div class="item-pass">Pass: Navigation is set globally and is editable</div><textarea class="item-note" placeholder="Method / notes: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-important">Important</span>
       </div>
       <div class="audit-item">
-        <div><div class="item-title">Global Footer Set &amp; Editable</div><div class="item-desc">The footer should also be a single global component. If it is hardcoded per template, footer changes (tracking codes, contact details, links) must be replicated across every page individually. Confirm it is global and that we can edit it.</div><div class="item-how">Check via the page builder's global footer settings or Appearance &gt; Widgets. Attempt an edit and confirm it applies site-wide.</div><div class="item-pass">Pass: Footer is set globally and is editable</div><input class="item-note" type="text" placeholder="Method / notes: "></div>
+        <div><div class="item-title">Global Footer Set &amp; Editable</div><div class="item-desc">The footer should also be a single global component. If it is hardcoded per template, footer changes (tracking codes, contact details, links) must be replicated across every page individually. Confirm it is global and that we can edit it.</div><div class="item-how">Check via the page builder's global footer settings or Appearance &gt; Widgets. Attempt an edit and confirm it applies site-wide.</div><div class="item-pass">Pass: Footer is set globally and is editable</div><textarea class="item-note" placeholder="Method / notes: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-important">Important</span>
       </div>
       <div class="audit-item">
-        <div><div class="item-title">Page Cloning Available</div><div class="item-desc">A significant time saver when building multiple SEO pages with a consistent layout.</div><div class="item-pass">Pass: Pages can be duplicated or cloned</div><input class="item-note" type="text" placeholder="Method available: "></div>
+        <div><div class="item-title">Page Cloning Available</div><div class="item-desc">A significant time saver when building multiple SEO pages with a consistent layout.</div><div class="item-pass">Pass: Pages can be duplicated or cloned</div><textarea class="item-note" placeholder="Method available: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-recommended">Recommended</span>
       </div>
       <div class="audit-item">
-        <div><div class="ms-tag">MS Non-Negotiable</div><div class="item-title">Yoast SEO Plugin Active</div><div class="item-desc">Required to manage meta titles, descriptions and on-page SEO elements for each page. Yoast (free) is Marketing Sweet's standard — install if not already present.</div><div class="item-how">Check Plugins section for Yoast SEO. Install if not present.</div><div class="item-pass">Pass: Yoast SEO installed and active</div><input class="item-note" type="text" placeholder="Plugin found / action taken: "></div>
+        <div><div class="ms-tag">MS Non-Negotiable</div><div class="item-title">Yoast SEO Plugin Active</div><div class="item-desc">Required to manage meta titles, descriptions and on-page SEO elements for each page. Yoast (free) is Marketing Sweet's standard — install if not already present.</div><div class="item-how">Check Plugins section for Yoast SEO. Install if not present.</div><div class="item-pass">Pass: Yoast SEO installed and active</div><textarea class="item-note" placeholder="Plugin found / action taken: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-critical">Critical</span>
       </div>
       <div class="audit-item">
-        <div><div class="item-title">Page Building Timeframe</div><div class="item-desc">Some sites require significantly more time to build SEO pages due to complex layouts, custom code or limited page builder functionality. Flag this early so it can be factored into scheduling.</div><div class="item-how">Attempt to create or clone a test page and assess how long the process would take.</div><div class="item-pass">Pass: No extra time required beyond standard page build</div><input class="item-note" type="text" placeholder="Estimated extra time required: "></div>
+        <div><div class="item-title">Page Building Timeframe</div><div class="item-desc">Some sites require significantly more time to build SEO pages due to complex layouts, custom code or limited page builder functionality. Flag this early so it can be factored into scheduling.</div><div class="item-how">Attempt to create or clone a test page and assess how long the process would take.</div><div class="item-pass">Pass: No extra time required beyond standard page build</div><textarea class="item-note" placeholder="Estimated extra time required: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-recommended">Recommended</span>
       </div>
@@ -367,12 +369,12 @@
     <div class="card">
       <div class="section-note">Test by navigating to the relevant template file and attempting to add a script tag — or check via the tracking code manager plugin if installed</div>
       <div class="audit-item">
-        <div><div class="item-title">Can Add Code to &lt;head&gt; Element</div><div class="item-desc">GA4 and GTM tags must be added to the &lt;head&gt; section of every page template. If this is blocked, tracking cannot be installed correctly.</div><div class="item-how">Check via Appearance &gt; Theme Editor or the tracking code manager plugin.</div><div class="item-pass">Pass: Custom code can be added to the &lt;head&gt; section</div><input class="item-note" type="text" placeholder="Notes: "></div>
+        <div><div class="item-title">Can Add Code to &lt;head&gt; Element</div><div class="item-desc">GA4 and GTM tags must be added to the &lt;head&gt; section of every page template. If this is blocked, tracking cannot be installed correctly.</div><div class="item-how">Check via Appearance &gt; Theme Editor or the tracking code manager plugin.</div><div class="item-pass">Pass: Custom code can be added to the &lt;head&gt; section</div><textarea class="item-note" placeholder="Notes: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-critical">Critical</span>
       </div>
       <div class="audit-item">
-        <div><div class="item-title">Can Add Code to &lt;body&gt; Element</div><div class="item-desc">GTM requires a &lt;noscript&gt; snippet in the &lt;body&gt; element directly after the opening &lt;body&gt; tag for full functionality.</div><div class="item-pass">Pass: Custom code can be added to the &lt;body&gt; section</div><input class="item-note" type="text" placeholder="Notes: "></div>
+        <div><div class="item-title">Can Add Code to &lt;body&gt; Element</div><div class="item-desc">GTM requires a &lt;noscript&gt; snippet in the &lt;body&gt; element directly after the opening &lt;body&gt; tag for full functionality.</div><div class="item-pass">Pass: Custom code can be added to the &lt;body&gt; section</div><textarea class="item-note" placeholder="Notes: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-important">Important</span>
       </div>
@@ -387,32 +389,32 @@
     <div class="section-header"><h2>1. Basics</h2></div>
     <div class="card">
       <div class="audit-item">
-        <div><div class="item-title">SSL Certificate</div><div class="item-desc">No SSL causes browser security warnings and poor SEO performance.</div><div class="item-pass">Pass: SSL active, http redirects to https</div><input class="item-note" type="text" placeholder="Notes: "></div>
+        <div><div class="item-title">SSL Certificate</div><div class="item-desc">No SSL causes browser security warnings and poor SEO performance.</div><div class="item-pass">Pass: SSL active, http redirects to https</div><textarea class="item-note" placeholder="Notes: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-critical">Critical</span>
       </div>
       <div class="audit-item">
-        <div><div class="tool-tag">tools.pingdom.com</div><div class="item-title">Load Speed</div><div class="item-desc">Slow load speeds hurt SEO rankings and user experience.</div><div class="item-pass">Pass: 3 seconds or under</div><input class="item-note" type="text" placeholder="Speed recorded: "></div>
+        <div><div class="tool-tag">tools.pingdom.com</div><div class="item-title">Load Speed</div><div class="item-desc">Slow load speeds hurt SEO rankings and user experience.</div><div class="item-pass">Pass: 3 seconds or under</div><textarea class="item-note" placeholder="Speed recorded: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-important">Important</span>
       </div>
       <div class="audit-item">
-        <div><div class="item-title">Hosting Location</div><div class="item-desc">On managed platforms the hosting location is controlled by the provider, not the client. Overseas infrastructure can still result in slower speeds for Australian visitors. Note the platform and server region.</div><div class="item-how">Use the IP Domain Country Flag Chrome Extension on the homepage. Note the CMS platform (e.g. Squarespace, Wix, Shopify).</div><div class="item-pass">Pass: Hosting region is Australia or a nearby CDN edge node</div><input class="item-note" type="text" placeholder="Platform / location found: "></div>
+        <div><div class="item-title">Hosting Location</div><div class="item-desc">On managed platforms the hosting location is controlled by the provider, not the client. Overseas infrastructure can still result in slower speeds for Australian visitors. Note the platform and server region.</div><div class="item-how">Use the IP Domain Country Flag Chrome Extension on the homepage. Note the CMS platform (e.g. Squarespace, Wix, Shopify).</div><div class="item-pass">Pass: Hosting region is Australia or a nearby CDN edge node</div><textarea class="item-note" placeholder="Platform / location found: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-important">Important</span>
       </div>
       <div class="audit-item">
-        <div><div class="item-title">Redirection Capabilities</div><div class="item-desc">When SEO pages are created or URLs change, redirects must be set up to preserve rankings. Managed platforms vary significantly — Squarespace and Shopify have built-in redirect tools, Wix has limited redirect functionality. Confirm what is available before the campaign starts.</div><div class="item-how">Check the platform's settings for a URL Redirects or 301 Redirect section. Test whether a redirect can be created.</div><div class="item-pass">Pass: Platform supports URL redirects and we can create them</div><input class="item-note" type="text" placeholder="Redirect capability confirmed: "></div>
+        <div><div class="item-title">Redirection Capabilities</div><div class="item-desc">When SEO pages are created or URLs change, redirects must be set up to preserve rankings. Managed platforms vary significantly — Squarespace and Shopify have built-in redirect tools, Wix has limited redirect functionality. Confirm what is available before the campaign starts.</div><div class="item-how">Check the platform's settings for a URL Redirects or 301 Redirect section. Test whether a redirect can be created.</div><div class="item-pass">Pass: Platform supports URL redirects and we can create them</div><textarea class="item-note" placeholder="Redirect capability confirmed: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-important">Important</span>
       </div>
       <div class="audit-item">
-        <div><div class="item-title">Security Capabilities</div><div class="item-desc">On managed platforms, security (SSL, DDoS protection, malware scanning) is handled by the provider rather than via plugins. Confirm what is included in the client's plan and whether there are any known security limitations.</div><div class="item-how">Check the platform's documentation or the client's plan details for included security features.</div><div class="item-pass">Pass: Platform-managed security in place — SSL, DDoS protection confirmed</div><input class="item-note" type="text" placeholder="Security features confirmed: "></div>
+        <div><div class="item-title">Security Capabilities</div><div class="item-desc">On managed platforms, security (SSL, DDoS protection, malware scanning) is handled by the provider rather than via plugins. Confirm what is included in the client's plan and whether there are any known security limitations.</div><div class="item-how">Check the platform's documentation or the client's plan details for included security features.</div><div class="item-pass">Pass: Platform-managed security in place — SSL, DDoS protection confirmed</div><textarea class="item-note" placeholder="Security features confirmed: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-recommended">Recommended</span>
       </div>
       <div class="audit-item">
-        <div><div class="item-title">Website Update Process</div><div class="item-desc">Understanding how changes are published on this platform avoids unexpected live edits during active campaigns. Some platforms publish changes immediately with no staging environment, which increases the risk of errors going live.</div><div class="item-how">Confirm whether the platform has a draft or staging mode. Note whether changes publish immediately or require a manual publish step.</div><div class="item-pass">Pass: Update process understood and documented. Staging or draft mode available if needed.</div><input class="item-note" type="text" placeholder="Update process: "></div>
+        <div><div class="item-title">Website Update Process</div><div class="item-desc">Understanding how changes are published on this platform avoids unexpected live edits during active campaigns. Some platforms publish changes immediately with no staging environment, which increases the risk of errors going live.</div><div class="item-how">Confirm whether the platform has a draft or staging mode. Note whether changes publish immediately or require a manual publish step.</div><div class="item-pass">Pass: Update process understood and documented. Staging or draft mode available if needed.</div><textarea class="item-note" placeholder="Update process: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-recommended">Recommended</span>
       </div>
@@ -422,32 +424,32 @@
     <div class="section-header"><h2>2. Plan &amp; Access</h2></div>
     <div class="card">
       <div class="audit-item">
-        <div><div class="item-title">Plan Supports Tracking Code</div><div class="item-desc">Some lower-tier CMS plans (e.g. Squarespace Personal) block custom code entirely, preventing GA4 and GTM installation.</div><div class="item-how">Check Settings &gt; Billing &gt; Plan in the CMS backend</div><div class="item-pass">Pass: Plan allows custom code and tracking scripts</div><input class="item-note" type="text" placeholder="CMS plan level: "></div>
+        <div><div class="item-title">Plan Supports Tracking Code</div><div class="item-desc">Some lower-tier CMS plans (e.g. Squarespace Personal) block custom code entirely, preventing GA4 and GTM installation.</div><div class="item-how">Check Settings &gt; Billing &gt; Plan in the CMS backend</div><div class="item-pass">Pass: Plan allows custom code and tracking scripts</div><textarea class="item-note" placeholder="CMS plan level: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-critical">Critical</span>
       </div>
       <div class="audit-item">
-        <div><div class="item-title">Sufficient User Seats to Add MS Account</div><div class="item-desc">Some plans cap the number of contributor or admin accounts. Marketing Sweet requires at least one seat to add a team member with an @marketingsweet.com.au email address. Confirm the plan allows this before proceeding.</div><div class="item-how">Check Settings &gt; Permissions or Contributors within the CMS. Confirm the current plan allows adding at least one additional user.</div><div class="item-pass">Pass: Plan supports additional users — MS account can be added</div><input class="item-note" type="text" placeholder="Seats available / MS account added: "></div>
+        <div><div class="item-title">Sufficient User Seats to Add MS Account</div><div class="item-desc">Some plans cap the number of contributor or admin accounts. Marketing Sweet requires at least one seat to add a team member with an @marketingsweet.com.au email address. Confirm the plan allows this before proceeding.</div><div class="item-how">Check Settings &gt; Permissions or Contributors within the CMS. Confirm the current plan allows adding at least one additional user.</div><div class="item-pass">Pass: Plan supports additional users — MS account can be added</div><textarea class="item-note" placeholder="Seats available / MS account added: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-critical">Critical</span>
       </div>
       <div class="audit-item">
-        <div><div class="item-title">Can Edit Page Content</div><div class="item-desc">Required for on-page SEO optimisation of existing pages.</div><div class="item-pass">Pass: Page content editable with our access level</div><input class="item-note" type="text" placeholder="Notes: "></div>
+        <div><div class="item-title">Can Edit Page Content</div><div class="item-desc">Required for on-page SEO optimisation of existing pages.</div><div class="item-pass">Pass: Page content editable with our access level</div><textarea class="item-note" placeholder="Notes: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-critical">Critical</span>
       </div>
       <div class="audit-item">
-        <div><div class="item-title">Can Add New Pages</div><div class="item-desc">Required for SEO page building. If restricted, the campaign scope will be significantly limited.</div><div class="item-pass">Pass: Can create and publish new pages</div><input class="item-note" type="text" placeholder="Notes: "></div>
+        <div><div class="item-title">Can Add New Pages</div><div class="item-desc">Required for SEO page building. If restricted, the campaign scope will be significantly limited.</div><div class="item-pass">Pass: Can create and publish new pages</div><textarea class="item-note" placeholder="Notes: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-important">Important</span>
       </div>
       <div class="audit-item">
-        <div><div class="item-title">Can Edit Header / Navigation</div><div class="item-desc">Needed when adding new SEO pages to the site's navigation structure.</div><div class="item-pass">Pass: Header navigation is editable with our access level</div><input class="item-note" type="text" placeholder="Notes: "></div>
+        <div><div class="item-title">Can Edit Header / Navigation</div><div class="item-desc">Needed when adding new SEO pages to the site's navigation structure.</div><div class="item-pass">Pass: Header navigation is editable with our access level</div><textarea class="item-note" placeholder="Notes: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-important">Important</span>
       </div>
       <div class="audit-item">
-        <div><div class="item-title">Can Edit Footer</div><div class="item-desc">Footer edits are often required for tracking codes, contact details and links.</div><div class="item-pass">Pass: Footer is editable with our access level</div><input class="item-note" type="text" placeholder="Notes: "></div>
+        <div><div class="item-title">Can Edit Footer</div><div class="item-desc">Footer edits are often required for tracking codes, contact details and links.</div><div class="item-pass">Pass: Footer is editable with our access level</div><textarea class="item-note" placeholder="Notes: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-important">Important</span>
       </div>
@@ -568,6 +570,16 @@ function autoResize(ta) {
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.summary-box textarea').forEach(ta => {
     ta.addEventListener('input', () => { autoResize(ta); syncMirrors(); });
+  });
+  document.querySelectorAll('.item-note').forEach(ta => {
+    if (ta.placeholder) {
+      const lbl = document.createElement('span');
+      lbl.className = 'item-note-label';
+      lbl.textContent = ta.placeholder;
+      ta.parentNode.insertBefore(lbl, ta);
+      ta.placeholder = '';
+    }
+    ta.addEventListener('input', () => autoResize(ta));
   });
 });
 </script>
