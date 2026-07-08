@@ -15,6 +15,8 @@
     /* Page break rules */
     .audit-item { break-inside: avoid; }
     .flag-item { break-inside: avoid; }
+    .section-header { break-after: avoid; }
+    .prereq-header { break-after: avoid; }
     .summary-section { break-before: page; }
     .summary-box textarea { display: none !important; }
     .print-mirror { display: block !important; }
@@ -36,6 +38,8 @@
   .info-field label { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: #999; margin-bottom: 5px; font-weight: 600; }
   .info-field input { width: 100%; border: none; border-bottom: 1.5px solid #e0e0e0; padding: 4px 0; font-size: 14px; color: #1a1a1a; outline: none; background: transparent; font-family: inherit; }
   .info-field input:focus { border-bottom-color: #ff7043; }
+  .info-field textarea { width: 100%; border: none; border-bottom: 1.5px solid #e0e0e0; padding: 4px 0; font-size: 14px; color: #1a1a1a; outline: none; background: transparent; font-family: inherit; resize: none; overflow: hidden; line-height: 1.4; min-height: 28px; }
+  .info-field textarea:focus { border-bottom-color: #ff7043; }
   .cms-toggle { background: white; padding: 16px 40px; border-bottom: 1px solid #e8e8e8; display: flex; align-items: center; gap: 12px; }
   .cms-toggle label { font-size: 12px; font-weight: 600; color: #666; text-transform: uppercase; letter-spacing: 1px; }
   .toggle-btn { padding: 7px 18px; border-radius: 20px; border: 1.5px solid #e0e0e0; background: white; cursor: pointer; font-size: 13px; font-weight: 500; color: #888; transition: all 0.15s; font-family: inherit; }
@@ -125,7 +129,7 @@
 </div>
 
 <div class="client-info">
-  <div class="info-field"><label>Business Name</label><input type="text" placeholder="XYZ Business"></div>
+  <div class="info-field"><label>Business Name</label><textarea placeholder="XYZ Business" rows="2"></textarea></div>
   <div class="info-field"><label>Website URL</label><input type="text" placeholder="www.example.com.au"></div>
   <div class="info-field"><label>Date of Audit</label><input type="date"></div>
   <div class="info-field"><label>Completed By</label><input type="text" placeholder="Your name"></div>
@@ -176,7 +180,7 @@
         <span class="urgency urgency-important">Important</span>
       </div>
       <div class="audit-item">
-        <div><div class="tool-tag">tools.pingdom.com</div><div class="item-title">Load Speed</div><div class="item-desc">Slow load speeds directly impact SEO rankings and visitor experience.</div><div class="item-pass">Pass: 3 seconds or under</div><textarea class="item-note" placeholder="Speed recorded: "></textarea></div>
+        <div><div class="tool-tag">pagespeed.web.dev</div><div class="item-title">Load Speed</div><div class="item-desc">Slow load speeds directly impact SEO rankings and visitor experience. Use Google PageSpeed Insights to get the Performance grade for both desktop and mobile.</div><div class="item-pass">Pass: 70+ performance score on desktop and mobile</div><textarea class="item-note" placeholder="Desktop grade: / Mobile grade: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-important">Important</span>
       </div>
@@ -198,7 +202,7 @@
         <span class="urgency urgency-critical">Critical</span>
       </div>
       <div class="audit-item">
-        <div><div class="item-title">SSL Certificate Active</div><div class="item-desc">No SSL causes browser security warnings for visitors and poor SEO performance.</div><div class="item-how">Check the URL begins with https:// and that http:// redirects to https://</div><div class="item-pass">Pass: SSL active, http redirects to https</div><textarea class="item-note" placeholder="Notes: "></textarea></div>
+        <div><div class="item-title">SSL Certificate Active</div><div class="item-desc">No SSL causes browser security warnings for visitors and poor SEO performance.</div><div class="item-how">Check the URL begins with https:// and that http:// redirects to https://. Test the http→https redirect in an incognito window to avoid cached results.</div><div class="item-pass">Pass: SSL active, http redirects to https</div><textarea class="item-note" placeholder="Notes: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-critical">Critical</span>
       </div>
@@ -351,7 +355,7 @@
         <span class="urgency urgency-recommended">Recommended</span>
       </div>
       <div class="audit-item">
-        <div><div class="ms-tag">MS Non-Negotiable</div><div class="item-title">Yoast SEO Plugin Active</div><div class="item-desc">Required to manage meta titles, descriptions and on-page SEO elements for each page. Yoast (free) is Marketing Sweet's standard — install if not already present.</div><div class="item-how">Check Plugins section for Yoast SEO. Install if not present.</div><div class="item-pass">Pass: Yoast SEO installed and active</div><textarea class="item-note" placeholder="Plugin found / action taken: "></textarea></div>
+        <div><div class="ms-tag">MS Non-Negotiable</div><div class="item-title">SEO Plugin Active</div><div class="item-desc">Required to manage meta titles, descriptions and on-page SEO elements. Marketing Sweet's standard is Yoast SEO (free) — however if the client has an existing SEO plugin (All-in-One SEO, Rank Math, etc.) with a pro licence, keep it in place rather than replacing it.</div><div class="item-how">Check Plugins section for any active SEO plugin. Install Yoast (free) only if none is present.</div><div class="item-pass">Pass: SEO plugin installed and active</div><textarea class="item-note" placeholder="Plugin found / action taken: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-critical">Critical</span>
       </div>
@@ -486,7 +490,6 @@
 </div><!-- end main -->
 
 <div class="footer">
-  <p>By completing this audit, I confirm all checks have been carried out accurately and I take responsibility for the findings recorded.</p>
   <div class="footer-right"><label>Completed by</label><input type="text" placeholder="Your name — DD/MM/YYYY"></div>
 </div>
 
@@ -580,6 +583,12 @@ document.addEventListener('DOMContentLoaded', () => {
       ta.placeholder = '';
     }
     ta.addEventListener('input', () => autoResize(ta));
+    ta.addEventListener('paste', () => setTimeout(() => autoResize(ta), 0));
+    autoResize(ta);
+  });
+  document.querySelectorAll('.info-field textarea').forEach(ta => {
+    ta.addEventListener('input', () => autoResize(ta));
+    ta.addEventListener('paste', () => setTimeout(() => autoResize(ta), 0));
   });
 });
 </script>

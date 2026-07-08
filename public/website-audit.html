@@ -14,6 +14,7 @@
     .header, .section-header, .urgency, .score-badge, .info-banner { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     /* Page break rules */
     .audit-item { break-inside: avoid; }
+    .section-header { break-after: avoid; }
     .summary-section { break-before: page; }
     .summary-box textarea { display: none !important; }
     .print-mirror { display: block !important; }
@@ -35,6 +36,7 @@
   .info-field label { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: #999; margin-bottom: 5px; font-weight: 600; }
   .info-field input { width: 100%; border: none; border-bottom: 1.5px solid #e0e0e0; padding: 4px 0; font-size: 14px; color: #1a1a1a; outline: none; background: transparent; font-family: inherit; }
   .info-field input:focus { border-bottom-color: #ff7043; }
+  .info-field textarea { width: 100%; border: none; border-bottom: 1.5px solid #e0e0e0; padding: 4px 0; font-size: 14px; color: #1a1a1a; outline: none; background: transparent; font-family: inherit; resize: none; overflow: hidden; line-height: 1.4; min-height: 28px; }
   .main { padding: 28px 40px; max-width: 980px; margin: 0 auto; }
   .section { margin-bottom: 20px; }
   .section-header { background: #1a1a1a; color: white; padding: 11px 20px; border-radius: 8px 8px 0 0; display: flex; justify-content: space-between; align-items: center; }
@@ -108,7 +110,7 @@
 </div>
 
 <div class="client-info">
-  <div class="info-field"><label>Business Name</label><input type="text" placeholder="XYZ Business"></div>
+  <div class="info-field"><label>Business Name</label><textarea placeholder="XYZ Business" rows="2"></textarea></div>
   <div class="info-field"><label>Website URL</label><input type="text" placeholder="www.example.com.au"></div>
   <div class="info-field"><label>Date of Audit</label><input type="date"></div>
   <div class="info-field"><label>Completed By</label><input type="text" placeholder="Your name"></div>
@@ -121,7 +123,7 @@
     <div class="section-header"><h2>1. SEO Health</h2><span class="section-score" id="s1">0/13</span></div>
     <div class="card">
       <div class="audit-item">
-        <div><div class="tool-tag">pagespeed.web.dev</div><div class="item-title">Page Load Speed</div><div class="item-desc">Slow load speeds directly hurt SEO rankings and cause visitors to leave before the page loads. Use the homepage URL.</div><div class="item-pass">Pass: Performance score 70 or above (green/amber)</div><textarea class="item-note" placeholder="Score recorded: "></textarea></div>
+        <div><div class="tool-tag">pagespeed.web.dev</div><div class="item-title">Page Load Speed</div><div class="item-desc">Slow load speeds directly hurt SEO rankings and cause visitors to leave before the page loads. Use Google PageSpeed Insights to get the Performance grade for both desktop and mobile.</div><div class="item-pass">Pass: 70+ performance score on desktop and mobile</div><textarea class="item-note" placeholder="Desktop grade: / Mobile grade: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-important">Important</span>
       </div>
@@ -131,7 +133,7 @@
         <span class="urgency urgency-important">Important</span>
       </div>
       <div class="audit-item">
-        <div><div class="item-title">HTTPS Redirect Active</div><div class="item-desc">Browsing to the http:// version of the site should automatically redirect to the secure https:// version. If it does not, some visitors will see browser security warnings.</div><div class="item-how">Type http://www.example.com.au in the address bar and confirm it redirects to https://</div><div class="item-pass">Pass: http:// redirects to https://</div><textarea class="item-note" placeholder="Notes: "></textarea></div>
+        <div><div class="item-title">HTTPS Redirect Active</div><div class="item-desc">Browsing to the http:// version of the site should automatically redirect to the secure https:// version. If it does not, some visitors will see browser security warnings.</div><div class="item-how">Type http://www.example.com.au in the address bar and confirm it redirects to https://. Test the http→https redirect in an incognito window to avoid cached results.</div><div class="item-pass">Pass: http:// redirects to https://</div><textarea class="item-note" placeholder="Notes: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-critical">Critical</span>
       </div>
@@ -270,7 +272,6 @@
 </div><!-- end main -->
 
 <div class="footer">
-  <p>By completing this audit, I confirm all checks have been carried out accurately and I take responsibility for the findings recorded.</p>
   <div class="footer-right"><label>Completed by</label><input type="text" placeholder="Your name — DD/MM/YYYY"></div>
 </div>
 
@@ -344,6 +345,12 @@ document.addEventListener('DOMContentLoaded', () => {
       ta.placeholder = '';
     }
     ta.addEventListener('input', () => autoResize(ta));
+    ta.addEventListener('paste', () => setTimeout(() => autoResize(ta), 0));
+    autoResize(ta);
+  });
+  document.querySelectorAll('.info-field textarea').forEach(ta => {
+    ta.addEventListener('input', () => autoResize(ta));
+    ta.addEventListener('paste', () => setTimeout(() => autoResize(ta), 0));
   });
 });
 </script>
