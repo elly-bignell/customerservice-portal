@@ -114,7 +114,7 @@ export default function OnboardingPage() {
 
               <div className="mb-8 grid grid-cols-2 gap-3">
                 <div className="rounded-xl bg-gray-50 px-4 py-3">
-                  <p className="text-xl font-extrabold tracking-tight text-[#1a1a1a]">22</p>
+                  <p className="text-xl font-extrabold tracking-tight text-[#1a1a1a]">21</p>
                   <p className="text-xs text-gray-500 mt-0.5">checks across 3 sections</p>
                 </div>
                 <div className="rounded-xl bg-gray-50 px-4 py-3">
