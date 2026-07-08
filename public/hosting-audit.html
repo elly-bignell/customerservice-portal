@@ -192,7 +192,7 @@
       </div>
       <div class="audit-item">
         <div><div class="item-title">Backup Solution</div><div class="item-desc">Without automated backups a site crash or hack could result in permanent data loss. If a backup plugin is installed, the last backup date is visible in the plugin dashboard. Note: if backups are managed at server level by the host, access to the hosting control panel will be needed to confirm.</div><div class="item-how">Check Plugins section for UpdraftPlus or equivalent. If installed, open the plugin to confirm scheduled backups and last successful backup date.</div><div class="item-pass">Pass: Backup plugin active with recent scheduled backups confirmed</div><input class="item-note" type="text" placeholder="Plugin found / last backup date: "></div>
-        <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
+        <select id="backup-select" class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-critical">Critical</span>
       </div>
       <div class="audit-item">
@@ -206,7 +206,12 @@
         <span class="urgency urgency-important">Important</span>
       </div>
       <div class="audit-item">
-        <div><div class="ms-tag">MS Non-Negotiable</div><div class="item-title">OneLogin / Two-Factor Authentication (2FA)</div><div class="item-desc">Without 2FA on admin logins, the site is vulnerable to brute force and credential stuffing attacks even if a security plugin is installed. OneLogin is Marketing Sweet's required plugin for this.</div><div class="item-how">Check Plugins section for OneLogin. If not present, install it as part of onboarding.</div><div class="item-pass">Pass: OneLogin installed and 2FA enabled for administrator accounts</div><input class="item-note" type="text" placeholder="Status / action taken: "></div>
+        <div><div class="ms-tag">MS Non-Negotiable</div><div class="item-title">OneLogin</div><div class="item-desc">OneLogin is Marketing Sweet's required plugin for managing admin access. If it cannot be installed, a Marketing Sweet admin account must be added as a fallback.</div><div class="item-how">Check Plugins section for OneLogin. If not present, install it as part of onboarding. If unable to install, add customerservice@marketingsweet.com.au as an Admin user.</div><div class="item-pass">Pass: OneLogin installed and active</div><input id="onelogin-note" class="item-note" type="text" placeholder="Status / action taken: "></div>
+        <select class="status-select" onchange="setOneLoginStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
+        <span class="urgency urgency-important">Important</span>
+      </div>
+      <div class="audit-item">
+        <div><div class="item-title">Two-Factor Authentication (2FA)</div><div class="item-desc">Without 2FA on admin logins, the site is vulnerable to brute force and credential stuffing attacks even if a security plugin is installed.</div><div class="item-how">Confirm 2FA is enabled for all administrator accounts — this may be via OneLogin or another method.</div><div class="item-pass">Pass: 2FA enabled for all administrator accounts</div><input class="item-note" type="text" placeholder="Method confirmed: "></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-important">Important</span>
       </div>
@@ -497,6 +502,13 @@ function setStatus(sel) {
   recalc();
   updateSummary();
 }
+function setOneLoginStatus(sel) {
+  setStatus(sel);
+  if (sel.value === 'fail') {
+    const note = document.getElementById('onelogin-note');
+    if (note && !note.value) note.value = 'customerservice@marketingsweet.com.au added as Admin user';
+  }
+}
 function recalc() {
   let p = 0, f = 0, c = 0;
   const active = document.getElementById('wp-audit').style.display !== 'none' ? 'wp-audit' : 'other-audit';
@@ -537,6 +549,10 @@ function updateSummary() {
   const taC = document.getElementById('ta-critical');
   const taX = document.getElementById('ta-concerns');
   const taR = document.getElementById('ta-recommendations');
+  const backupSel = document.getElementById('backup-select');
+  if (backupSel && backupSel.value === 'pass') {
+    recs.push('• We recommend downloading a copy of your backups to a local drive or Google Drive folder as an additional safeguard — automated backups stored on the same server can be lost in a hosting failure.');
+  }
   taC.value = fails.join('\n');
   taX.value = concerns.join('\n');
   taR.value = recs.join('\n');
