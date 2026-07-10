@@ -212,11 +212,6 @@
         <span class="urgency urgency-important">Important</span>
       </div>
       <div class="audit-item">
-        <div><div class="ms-tag">MS Non-Negotiable</div><div class="item-title">OneLogin</div><div class="item-desc">OneLogin is Marketing Sweet's required plugin for managing admin access. If it cannot be installed, a Marketing Sweet admin account must be added as a fallback.</div><div class="item-how">Check Plugins section for OneLogin. If not present, install it as part of onboarding. If unable to install, add customerservice@marketingsweet.com.au as an Admin user.</div><div class="item-pass">Pass: OneLogin installed and active</div><textarea id="onelogin-note" class="item-note" placeholder="Status / action taken: "></textarea></div>
-        <select class="status-select" onchange="setOneLoginStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
-        <span class="urgency urgency-important">Important</span>
-      </div>
-      <div class="audit-item">
         <div><div class="item-title">Two-Factor Authentication (2FA)</div><div class="item-desc">Without 2FA on admin logins, the site is vulnerable to brute force and credential stuffing attacks even if a security plugin is installed.</div><div class="item-how">Confirm 2FA is enabled for all administrator accounts — this may be via OneLogin or another method.</div><div class="item-pass">Pass: 2FA enabled for all administrator accounts</div><textarea class="item-note" placeholder="Method confirmed: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-important">Important</span>
@@ -506,13 +501,6 @@ function setStatus(sel) {
   sel.className = 'status-select' + (v ? ' status-' + v : '');
   recalc();
   updateSummary();
-}
-function setOneLoginStatus(sel) {
-  setStatus(sel);
-  if (sel.value === 'fail') {
-    const note = document.getElementById('onelogin-note');
-    if (note && !note.value) note.value = 'customerservice@marketingsweet.com.au added as Admin user';
-  }
 }
 function recalc() {
   let p = 0, f = 0, c = 0;
