@@ -186,13 +186,13 @@
         <span class="urgency urgency-critical">Critical</span>
       </div>
       <div class="audit-item">
-        <div><div class="tool-tag">ipinfo.io</div><div class="item-title">Hosting Location</div><div class="item-desc">Overseas servers result in slower load speeds for Australian visitors, directly impacting SEO rankings.</div><div class="item-how">Go to ipinfo.io and enter the domain to confirm the server's hosting location and provider.</div><div class="item-pass">Pass: Hosted in Australia (AU)</div><textarea class="item-note" placeholder="Hosting provider: "></textarea><textarea class="item-note" placeholder="Location found: "></textarea></div>
+        <div><div class="tool-tag"><a href="https://ipinfo.io" target="_blank" style="color:inherit;text-decoration:none;">ipinfo.io</a></div><div class="item-title">Hosting Location</div><div class="item-desc">Overseas servers result in slower load speeds for Australian visitors, directly impacting SEO rankings.</div><div class="item-how">Go to <a href="https://ipinfo.io" target="_blank">ipinfo.io</a> and enter the domain to confirm the server's hosting location and provider.</div><div class="item-pass">Pass: Hosted in Australia (AU)</div><textarea class="item-note" placeholder="Hosting provider: "></textarea><textarea class="item-note" placeholder="Location found: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-important">Important</span>
       </div>
       <div style="padding:14px 20px; border-bottom:1px solid #f5f5f5; background:#fafafa; display:grid; grid-template-columns:repeat(3,1fr); gap:20px;">
         <div class="info-field"><label>Domain host</label><textarea placeholder="e.g. VentraIP, GoDaddy" rows="1"></textarea></div>
-        <div class="info-field"><label>DNS provider / name servers</label><textarea placeholder="Use dnschecker.org/all-dns-records-of-domain.php — note where name servers point" rows="1"></textarea></div>
+        <div class="info-field"><label>DNS provider / name servers</label><textarea id="dns-provider-note" placeholder="Use dnschecker.org/all-dns-records-of-domain.php — note where name servers point" rows="1"></textarea></div>
         <div class="info-field"><label>Email host</label><textarea placeholder="Use dnschecker.org/all-dns-records-of-domain.php — check MX record (e.g. Google Workspace, Microsoft 365, custom)" rows="1"></textarea></div>
       </div>
       <div class="audit-item">
@@ -205,7 +205,7 @@
 
   <!-- 2. SECURITY & BACKUPS -->
   <div class="section">
-    <div class="section-header"><h2>2. Security &amp; Backups</h2><span class="section-score" id="s2">0/6</span></div>
+    <div class="section-header"><h2>2. Security &amp; Backups</h2><span class="section-score" id="s2">0/7</span></div>
     <div class="card">
       <div class="audit-item">
         <div><div class="item-title">Security Plugin</div><div class="item-desc">Without a security plugin the site is exposed to malware, brute force attacks and login threats.</div><div class="item-how">Check Plugins section for Wordfence or equivalent</div><div class="item-pass">Pass: Wordfence (or equivalent) installed and active</div><textarea class="item-note" placeholder="Plugin found: "></textarea></div>
@@ -223,6 +223,11 @@
         <span class="urgency urgency-critical">Critical</span>
       </div>
       <div class="audit-item">
+        <div><div class="item-title">No Mixed Content / Insecure Connections</div><div class="item-desc">Even when a site loads over HTTPS, it may still request insecure resources (images, scripts, fonts loaded over http://). This triggers browser security warnings and can affect SEO and trust signals.</div><div class="item-how">Open the site in Chrome, press F12 to open DevTools, go to the Console or Network tab, and filter for 'http://' or look for mixed content warnings. Check the homepage and a service page.</div><div class="item-pass">Pass: No mixed content warnings — all resources loaded over HTTPS</div><textarea class="item-note" placeholder="Issues found: "></textarea></div>
+        <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
+        <span class="urgency urgency-important">Important</span>
+      </div>
+      <div class="audit-item">
         <div><div class="item-title">SSL Expiry Date</div><div class="item-desc">An expired SSL certificate takes the site offline immediately and causes visitor-facing security warnings. Worth checking the renewal date even if currently active.</div><div class="item-how">Click the padlock icon in the browser address bar and check the certificate details for the expiry date.</div><div class="item-pass">Pass: SSL valid for more than 30 days</div><textarea class="item-note" placeholder="Expiry date: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-important">Important</span>
@@ -233,7 +238,7 @@
         <span class="urgency urgency-important">Important</span>
       </div>
       <div class="audit-item">
-        <div><div class="item-title">Anti-Spam</div><div class="item-desc">Protects contact forms and comment sections from spam submissions — a security and data quality issue.</div><div class="item-how">Check Plugins section for Akismet or equivalent.</div><div class="item-pass">Pass: Akismet or equivalent installed and active</div><textarea class="item-note" placeholder="Plugin found: "></textarea></div>
+        <div><div class="item-title">Anti-Spam</div><div class="item-desc">An anti-spam plugin protects contact forms and comment sections from spam submissions. It must be installed AND correctly configured — a plugin that is installed but not connected to the contact form provides no protection.</div><div class="item-how">Check Plugins section for Akismet or equivalent. If installed, confirm it is active and configured to work with the site's contact form (e.g. Akismet integrated with CF7 or Elementor Forms, or reCAPTCHA added to forms).</div><div class="item-pass">Pass: Anti-spam plugin installed, active and configured with the contact form</div><textarea class="item-note" placeholder="Plugin found / configuration confirmed: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-recommended">Recommended</span>
       </div>
@@ -246,7 +251,7 @@
     <div class="card">
       <div class="section-note">Appearance &gt; Themes and Plugins section in the WordPress dashboard</div>
       <div class="audit-item">
-        <div><div class="item-title">Theme Up to Date</div><div class="item-desc">An outdated theme leads to plugin conflicts and missing performance improvements from the developer.</div><div class="item-pass">Pass: Active theme fully up to date</div><textarea class="item-note" placeholder="Theme name and version: "></textarea></div>
+        <div><div class="item-title">Theme Up to Date</div><div class="item-desc">An outdated theme leads to plugin conflicts and missing performance improvements from the developer.</div><div class="item-how">Also check whether the theme is actively maintained and compatible with the current WordPress and PHP versions — custom or abandoned themes may show no pending updates but could still cause issues if they have not been tested against the current environment.</div><div class="item-pass">Pass: Active theme fully up to date</div><textarea class="item-note" placeholder="Theme name and version: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-important">Important</span>
       </div>
@@ -304,7 +309,7 @@
         <span class="urgency urgency-important">Important</span>
       </div>
       <div class="audit-item">
-        <div><div class="item-title">SendGrid / SMTP</div><div class="item-desc">Without SMTP, contact form submissions and system notifications often fail to deliver or land in spam.</div><div class="item-pass">Pass: SendGrid or SMTP plugin installed and active</div><textarea class="item-note" placeholder="Plugin found: "></textarea></div>
+        <div><div class="item-title">SendGrid / SMTP</div><div class="item-desc">Without SMTP, contact form submissions and system notifications often fail to deliver or land in spam.</div><div class="item-how">Also check that only one SMTP plugin is active — multiple active SMTP plugins can conflict and cause email delivery failures.</div><div class="item-pass">Pass: SendGrid or SMTP plugin installed and active</div><textarea class="item-note" placeholder="Plugin found / conflicts checked: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-important">Important</span>
       </div>
@@ -429,7 +434,7 @@
         <span class="urgency urgency-important">Important</span>
       </div>
       <div class="audit-item">
-        <div><div class="item-title">Hosting Location</div><div class="item-desc">On managed platforms the hosting location is controlled by the provider, not the client. Overseas infrastructure can still result in slower speeds for Australian visitors. Note the platform and server region.</div><div class="item-how">Go to ipinfo.io and enter the domain to confirm the server location. Note the CMS platform (e.g. Squarespace, Wix, Shopify).</div><div class="item-pass">Pass: Hosting region is Australia or a nearby CDN edge node</div><textarea class="item-note" placeholder="Platform / location found: "></textarea></div>
+        <div><div class="item-title">Hosting Location</div><div class="item-desc">On managed platforms the hosting location is controlled by the provider, not the client. Overseas infrastructure can still result in slower speeds for Australian visitors. Note the platform and server region.</div><div class="item-how">Go to <a href="https://ipinfo.io" target="_blank">ipinfo.io</a> and enter the domain to confirm the server location. Note the CMS platform (e.g. Squarespace, Wix, Shopify).</div><div class="item-pass">Pass: Hosting region is Australia or a nearby CDN edge node</div><textarea class="item-note" placeholder="Platform / location found: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-important">Important</span>
       </div>
@@ -614,6 +619,10 @@ function updateSummary() {
   if (backupSel && backupSel.value === 'pass') {
     recs.push('• We recommend downloading a copy of your backups to a local drive or Google Drive folder as an additional safeguard — automated backups stored on the same server can be lost in a hosting failure.');
   }
+  const dnsTa = document.getElementById('dns-provider-note');
+  if (dnsTa && /cloudflare/i.test(dnsTa.value)) {
+    recs.push('• DNS provider is Cloudflare — note that Statuscake uptime monitoring may be blocked by Cloudflare. This will need to be reviewed and configured to allow monitoring.');
+  }
   taC.value = fails.join('\n');
   taX.value = concerns.join('\n');
   taR.value = recs.join('\n');
@@ -646,6 +655,8 @@ document.addEventListener('DOMContentLoaded', () => {
     ta.addEventListener('input', () => autoResize(ta));
     ta.addEventListener('paste', () => setTimeout(() => autoResize(ta), 0));
   });
+  const dnsTa = document.getElementById('dns-provider-note');
+  if (dnsTa) dnsTa.addEventListener('input', updateSummary);
 });
 </script>
 </body>
