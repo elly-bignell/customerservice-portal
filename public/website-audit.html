@@ -85,6 +85,9 @@
   .footer-right label { display: block; font-size: 10px; color: #666; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
   .footer input { background: transparent; border: none; border-bottom: 1px solid #444; color: white; font-size: 13px; text-align: right; outline: none; width: 220px; font-family: inherit; }
   .footer input::placeholder { color: #555; }
+  .toggle-btn { padding: 7px 18px; border-radius: 20px; border: 1.5px solid #e0e0e0; background: white; cursor: pointer; font-size: 13px; font-weight: 500; color: #888; transition: all 0.15s; font-family: inherit; }
+  .toggle-btn:hover { border-color: #ff7043; color: #ff7043; }
+  .toggle-btn.active { background: #1a1a1a; border-color: #1a1a1a; color: white; }
 </style>
 </head>
 <body>
@@ -118,9 +121,20 @@
 
 <div class="main">
 
+  <!-- QUODO/MS BUILT CHECK -->
+  <div style="background:white; border:1px solid #e8e8e8; border-radius:8px; padding:14px 20px; margin-bottom:20px; display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
+    <span style="font-size:12px; font-weight:600; color:#555;">Built by Marketing Sweet or Quodo?</span>
+    <button class="toggle-btn" id="quodo-yes" onclick="setQuodo('yes')">Yes</button>
+    <button class="toggle-btn" id="quodo-no" onclick="setQuodo('no')">No</button>
+    <span id="quodo-year-field" style="display:none; align-items:center; gap:6px;">
+      <label style="font-size:10px; color:#999; font-weight:600; text-transform:uppercase; letter-spacing:1px;">Year built:</label>
+      <input type="text" id="quodo-year" placeholder="e.g. 2022" style="border:none; border-bottom:1.5px solid #e0e0e0; font-size:13px; padding:4px 0; outline:none; background:transparent; font-family:inherit; width:80px; margin-left:4px;">
+    </span>
+  </div>
+
   <!-- 1. SEO HEALTH -->
   <div class="section">
-    <div class="section-header"><h2>1. SEO Health</h2><span class="section-score" id="s1">0/12</span></div>
+    <div class="section-header"><h2>1. SEO Health</h2><span class="section-score" id="s1">0/13</span></div>
     <div class="card">
       <div class="audit-item">
         <div><div class="tool-tag">pagespeed.web.dev</div><div class="item-title">Core Web Vitals</div><div class="item-desc">Google uses Core Web Vitals as a direct ranking signal. LCP (Largest Contentful Paint), CLS (Cumulative Layout Shift) and INP (Interaction to Next Paint) measure real user experience.</div><div class="item-how">Run pagespeed.web.dev on the homepage and check the Core Web Vitals section. Note each individual score.</div><div class="item-pass">Pass: All three Core Web Vitals pass (green)</div><textarea class="item-note" placeholder="LCP: / CLS: / INP: "></textarea></div>
@@ -139,6 +153,11 @@
       </div>
       <div class="audit-item">
         <div><div class="item-title">No-Index Tag Not Set</div><div class="item-desc">A no-index meta tag tells Google not to include the page in search results. This is sometimes left on sites after development and blocks all organic rankings.</div><div class="item-how">Right-click &gt; View Page Source &gt; search for "noindex". Also check in SE Rankings under the Site Audit.</div><div class="item-pass">Pass: No noindex meta tag found on key pages</div><textarea class="item-note" placeholder="Notes: "></textarea></div>
+        <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
+        <span class="urgency urgency-critical">Critical</span>
+      </div>
+      <div class="audit-item">
+        <div><div class="tool-tag">View Page Source</div><div class="item-title">Key Pages Set to Index</div><div class="item-desc">Even if a site-wide no-index setting is off, individual pages can still be blocked from Google via a page-level no-index tag. Check the pages that matter most.</div><div class="item-how">On each of the following pages, right-click &gt; View Page Source and search for 'noindex'. Confirm none are present: Homepage, main service pages, Contact page.</div><div class="item-pass">Pass: No noindex tag found on homepage, service pages or contact page</div><textarea class="item-note" placeholder="Pages checked / findings: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-critical">Critical</span>
       </div>
@@ -210,13 +229,18 @@
 
   <!-- 3. UX & FRONT-END TESTING -->
   <div class="section">
-    <div class="section-header"><h2>3. UX &amp; Front-End Testing</h2><span class="section-score" id="s3">0/5</span></div>
+    <div class="section-header"><h2>3. UX &amp; Front-End Testing</h2><span class="section-score" id="s3">0/6</span></div>
     <div class="card">
       <div class="section-note">Complete manual testing on both desktop and mobile</div>
       <div class="audit-item">
-        <div><div class="item-title">Contact Forms Working</div><div class="item-desc">A broken contact form means the site is actively losing leads without the client knowing. Test the form end to end and confirm submission emails are received.</div><div class="item-how">Complete and submit the main contact form using a test email address. Confirm the submission email is received and a thank-you message is shown.</div><div class="item-pass">Pass: Form submits successfully and confirmation is received</div><textarea class="item-note" placeholder="Form location tested and result: "></textarea></div>
+        <div><div class="item-title">Contact Form Submits Successfully</div><div class="item-desc">A broken contact form means the site is actively losing leads. Submit the form and confirm an on-screen acknowledgement is shown.</div><div class="item-how">Complete and submit the main contact form. Confirm a thank-you message or thank-you page is displayed after submission.</div><div class="item-pass">Pass: Form submits and an on-screen acknowledgement is shown</div><textarea class="item-note" placeholder="Form location tested and result: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-critical">Critical</span>
+      </div>
+      <div class="audit-item">
+        <div><div class="item-title">Contact Form Autoresponder Active</div><div class="item-desc">An autoresponder confirms to the customer that their enquiry has been received. Without one, customers have no assurance their message got through.</div><div class="item-how">After submitting the test form, check the inbox of the email address used. Confirm an automated confirmation email is received.</div><div class="item-pass">Pass: Automated confirmation email received after form submission</div><textarea class="item-note" placeholder="Autoresponder received: Yes / No — notes: "></textarea></div>
+        <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
+        <span class="urgency urgency-important">Important</span>
       </div>
       <div class="audit-item">
         <div><div class="item-title">Phone Number Links Working</div><div class="item-desc">On mobile, phone numbers should be tappable links that trigger a call. Non-linked phone numbers are a significant source of lost leads on mobile devices.</div><div class="item-how">On a mobile device, tap the phone number on the site. It should prompt a call.</div><div class="item-pass">Pass: Phone numbers are clickable on mobile and trigger a call</div><textarea class="item-note" placeholder="Notes: "></textarea></div>
@@ -262,7 +286,7 @@
     </div>
   </div>
   <div style="display:flex; justify-content:flex-end; padding: 20px 0 36px;" class="no-print">
-    <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+    <button class="print-btn" onclick="validateAndPrint()">Print / Save as PDF</button>
   </div>
 </div><!-- end main -->
 
@@ -271,6 +295,42 @@
 </div>
 
 <script>
+function validateAndPrint() {
+  const missing = [];
+  const bizName = document.querySelector('.client-info .info-field:nth-child(1) textarea');
+  const url = document.querySelector('.client-info .info-field:nth-child(2) input');
+  const date = document.querySelector('.client-info .info-field:nth-child(3) input');
+  const completedBy = document.querySelector('.client-info .info-field:nth-child(4) input');
+  if (!bizName || !bizName.value.trim()) missing.push('Business Name');
+  if (!url || !url.value.trim()) missing.push('Website URL');
+  if (!date || !date.value.trim()) missing.push('Date of Audit');
+  if (!completedBy || !completedBy.value.trim()) missing.push('Completed By');
+  const unset = [];
+  document.querySelectorAll('.status-select').forEach(s => {
+    if (s.value === '') {
+      const ai = s.closest('.audit-item');
+      const title = ai && ai.querySelector('.item-title');
+      unset.push(title ? title.textContent.trim() : 'Unknown item');
+    }
+  });
+  if (missing.length > 0 || unset.length > 0) {
+    let msg = '';
+    if (missing.length > 0) msg += 'Please complete the following header fields:\n• ' + missing.join('\n• ');
+    if (unset.length > 0) {
+      if (msg) msg += '\n\n';
+      msg += 'Please set a status for the following items:\n• ' + unset.join('\n• ');
+    }
+    alert(msg);
+    return;
+  }
+  window.print();
+}
+function setQuodo(val) {
+  document.getElementById('quodo-yes').classList.toggle('active', val === 'yes');
+  document.getElementById('quodo-no').classList.toggle('active', val === 'no');
+  const yf = document.getElementById('quodo-year-field');
+  if (yf) yf.style.display = val === 'yes' ? 'flex' : 'none';
+}
 function setStatus(sel) {
   const v = sel.value;
   sel.className = 'status-select' + (v ? ' status-' + v : '');

@@ -159,6 +159,17 @@
     </div>
   </div>
 
+  <!-- QUODO/MS BUILT CHECK -->
+  <div style="background:white; border:1px solid #e8e8e8; border-radius:8px; padding:14px 20px; margin-bottom:20px; display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
+    <span style="font-size:12px; font-weight:600; color:#555;">Built by Marketing Sweet or Quodo?</span>
+    <button class="toggle-btn" id="quodo-yes" onclick="setQuodo('yes')">Yes</button>
+    <button class="toggle-btn" id="quodo-no" onclick="setQuodo('no')">No</button>
+    <span id="quodo-year-field" style="display:none; align-items:center; gap:6px;">
+      <label style="font-size:10px; color:#999; font-weight:600; text-transform:uppercase; letter-spacing:1px;">Year built:</label>
+      <input type="text" id="quodo-year" placeholder="e.g. 2022" style="border:none; border-bottom:1.5px solid #e0e0e0; font-size:13px; padding:4px 0; outline:none; background:transparent; font-family:inherit; width:80px; margin-left:4px;">
+    </span>
+  </div>
+
   <!-- 1. SERVER & SOFTWARE -->
   <div class="section">
     <div class="section-header"><h2>1. Server &amp; Software</h2><span class="section-score" id="s1">0/4</span></div>
@@ -175,9 +186,14 @@
         <span class="urgency urgency-critical">Critical</span>
       </div>
       <div class="audit-item">
-        <div><div class="item-title">Hosting Location</div><div class="item-desc">Overseas servers result in slower load speeds for Australian visitors, directly impacting SEO rankings.</div><div class="item-how">Use the IP Domain Country Flag Chrome Extension on the homepage</div><div class="item-pass">Pass: Hosted in Australia (AU)</div><textarea class="item-note" placeholder="Location found: "></textarea></div>
+        <div><div class="tool-tag">ipinfo.io</div><div class="item-title">Hosting Location</div><div class="item-desc">Overseas servers result in slower load speeds for Australian visitors, directly impacting SEO rankings.</div><div class="item-how">Go to ipinfo.io and enter the domain to confirm the server's hosting location and provider.</div><div class="item-pass">Pass: Hosted in Australia (AU)</div><textarea class="item-note" placeholder="Hosting provider: "></textarea><textarea class="item-note" placeholder="Location found: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-important">Important</span>
+      </div>
+      <div style="padding:14px 20px; border-bottom:1px solid #f5f5f5; background:#fafafa; display:grid; grid-template-columns:repeat(3,1fr); gap:20px;">
+        <div class="info-field"><label>Domain host</label><textarea placeholder="e.g. VentraIP, GoDaddy" rows="1"></textarea></div>
+        <div class="info-field"><label>DNS provider / name servers</label><textarea placeholder="Use dnschecker.org/all-dns-records-of-domain.php — note where name servers point" rows="1"></textarea></div>
+        <div class="info-field"><label>Email host</label><textarea placeholder="Use dnschecker.org/all-dns-records-of-domain.php — check MX record (e.g. Google Workspace, Microsoft 365, custom)" rows="1"></textarea></div>
       </div>
       <div class="audit-item">
         <div><div class="tool-tag">pagespeed.web.dev</div><div class="item-title">Load Speed</div><div class="item-desc">Slow load speeds directly impact SEO rankings and visitor experience. Use Google PageSpeed Insights to get the Performance grade for both desktop and mobile.</div><div class="item-pass">Pass: 70+ performance score on desktop and mobile</div><textarea class="item-note" placeholder="Desktop grade: / Mobile grade: "></textarea></div>
@@ -264,7 +280,7 @@
 
   <!-- 4. PLUGINS -->
   <div class="section">
-    <div class="section-header"><h2>4. Plugins</h2><span class="section-score" id="s4">0/12</span></div>
+    <div class="section-header"><h2>4. Plugins</h2><span class="section-score" id="s4">0/15</span></div>
     <div class="card">
       <div class="section-note">Plugins section in the WordPress dashboard</div>
       <div class="audit-item">
@@ -278,7 +294,12 @@
         <span class="urgency urgency-important">Important</span>
       </div>
       <div class="audit-item">
-        <div><div class="ms-tag">MS Non-Negotiable</div><div class="item-title">Activity Log</div><div class="item-desc">Tracks all user actions on the site — essential for troubleshooting and security monitoring. Marketing Sweet installs this on all client sites.</div><div class="item-how">Check Plugins section for WP Activity Log or equivalent. Install if not present.</div><div class="item-pass">Pass: Activity log plugin installed and active</div><textarea class="item-note" placeholder="Plugin found / action taken: "></textarea></div>
+        <div><div class="ms-tag">MS Non-Negotiable</div><div class="item-title">Activity Log Installed</div><div class="item-desc">Tracks all user actions on the site — essential for troubleshooting and security monitoring. Marketing Sweet installs this on all client sites.</div><div class="item-how">Check Plugins section for WP Activity Log or equivalent. Install if not present.</div><div class="item-pass">Pass: Activity log plugin installed and active</div><textarea class="item-note" placeholder="Plugin found / action taken: "></textarea></div>
+        <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
+        <span class="urgency urgency-important">Important</span>
+      </div>
+      <div class="audit-item">
+        <div><div class="item-title">Activity Log Retention Period</div><div class="item-desc">Some activity log plugins default to storing only 30 days of history. 365 days is required for effective security monitoring and troubleshooting.</div><div class="item-how">Open the WP Activity Log plugin settings and check the retention/pruning setting.</div><div class="item-pass">Pass: Retention set to 365 days</div><textarea class="item-note" placeholder="Retention period found: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-important">Important</span>
       </div>
@@ -296,6 +317,16 @@
         <div><div class="item-title">Caching Plugin</div><div class="item-desc">Caching stores a version of the site so pages load faster for returning visitors. Note: if the hosting environment provides server-side caching (e.g. LiteSpeed or managed WordPress hosting), a separate caching plugin may conflict — confirm before installing.</div><div class="item-how">Check Plugins section for LiteSpeed Cache, WP Rocket or equivalent. Confirm with the client or host whether server-side caching is already in place.</div><div class="item-pass">Pass: Caching in place — either via plugin or confirmed server-side</div><textarea class="item-note" placeholder="Plugin found / server-side confirmed: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-important">Important</span>
+      </div>
+      <div class="audit-item">
+        <div><div class="item-title">Browser Caching Enabled</div><div class="item-desc">Browser caching instructs visitors' browsers to store static files locally, reducing load times on return visits.</div><div class="item-how">Check the active caching plugin settings and confirm browser caching is enabled.</div><div class="item-pass">Pass: Browser caching enabled</div><textarea class="item-note" placeholder="Status confirmed: "></textarea></div>
+        <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
+        <span class="urgency urgency-recommended">Recommended</span>
+      </div>
+      <div class="audit-item">
+        <div><div class="item-title">ESI (Edge Side Includes) Enabled</div><div class="item-desc">ESI allows the server or CDN to cache a full static HTML page while dynamically loading specific sections — improving performance for sites with dynamic content.</div><div class="item-how">Check the active caching plugin settings and confirm ESI is enabled if supported by the hosting environment.</div><div class="item-pass">Pass: ESI enabled or not applicable to hosting environment</div><textarea class="item-note" placeholder="Status confirmed: "></textarea></div>
+        <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
+        <span class="urgency urgency-recommended">Recommended</span>
       </div>
       <div class="audit-item">
         <div><div class="item-title">Redirection Plugin</div><div class="item-desc">Handles 404 errors and redirects broken URLs, protecting SEO rankings and improving user experience.</div><div class="item-pass">Pass: Redirection plugin installed and active</div><textarea class="item-note" placeholder="Plugin found: "></textarea></div>
@@ -398,7 +429,7 @@
         <span class="urgency urgency-important">Important</span>
       </div>
       <div class="audit-item">
-        <div><div class="item-title">Hosting Location</div><div class="item-desc">On managed platforms the hosting location is controlled by the provider, not the client. Overseas infrastructure can still result in slower speeds for Australian visitors. Note the platform and server region.</div><div class="item-how">Use the IP Domain Country Flag Chrome Extension on the homepage. Note the CMS platform (e.g. Squarespace, Wix, Shopify).</div><div class="item-pass">Pass: Hosting region is Australia or a nearby CDN edge node</div><textarea class="item-note" placeholder="Platform / location found: "></textarea></div>
+        <div><div class="item-title">Hosting Location</div><div class="item-desc">On managed platforms the hosting location is controlled by the provider, not the client. Overseas infrastructure can still result in slower speeds for Australian visitors. Note the platform and server region.</div><div class="item-how">Go to ipinfo.io and enter the domain to confirm the server location. Note the CMS platform (e.g. Squarespace, Wix, Shopify).</div><div class="item-pass">Pass: Hosting region is Australia or a nearby CDN edge node</div><textarea class="item-note" placeholder="Platform / location found: "></textarea></div>
         <select class="status-select" onchange="setStatus(this)"><option value="">Status</option><option value="pass">Pass</option><option value="fail">Fail</option><option value="concern">Concern</option><option value="na">N/A</option></select>
         <span class="urgency urgency-important">Important</span>
       </div>
@@ -480,7 +511,7 @@
   </div>
 </div>
 <div style="display:flex; justify-content:flex-end; padding: 20px 0 36px;" class="no-print">
-  <button class="print-btn" onclick="window.print()">Print / Save as PDF</button>
+  <button class="print-btn" onclick="validateAndPrint()">Print / Save as PDF</button>
 </div>
 </div><!-- end main -->
 
@@ -489,6 +520,43 @@
 </div>
 
 <script>
+function validateAndPrint() {
+  const missing = [];
+  const bizName = document.querySelector('.client-info .info-field:nth-child(1) textarea');
+  const url = document.querySelector('.client-info .info-field:nth-child(2) input');
+  const date = document.querySelector('.client-info .info-field:nth-child(3) input');
+  const completedBy = document.querySelector('.client-info .info-field:nth-child(4) input');
+  if (!bizName || !bizName.value.trim()) missing.push('Business Name');
+  if (!url || !url.value.trim()) missing.push('Website URL');
+  if (!date || !date.value.trim()) missing.push('Date of Audit');
+  if (!completedBy || !completedBy.value.trim()) missing.push('Completed By');
+  const active = document.getElementById('wp-audit').style.display !== 'none' ? 'wp-audit' : 'other-audit';
+  const unset = [];
+  document.querySelectorAll('#' + active + ' .status-select').forEach(s => {
+    if (s.value === '') {
+      const ai = s.closest('.audit-item');
+      const title = ai && ai.querySelector('.item-title');
+      unset.push(title ? title.textContent.trim() : 'Unknown item');
+    }
+  });
+  if (missing.length > 0 || unset.length > 0) {
+    let msg = '';
+    if (missing.length > 0) msg += 'Please complete the following header fields:\n• ' + missing.join('\n• ');
+    if (unset.length > 0) {
+      if (msg) msg += '\n\n';
+      msg += 'Please set a status for the following items:\n• ' + unset.join('\n• ');
+    }
+    alert(msg);
+    return;
+  }
+  window.print();
+}
+function setQuodo(val) {
+  document.getElementById('quodo-yes').classList.toggle('active', val === 'yes');
+  document.getElementById('quodo-no').classList.toggle('active', val === 'no');
+  const yf = document.getElementById('quodo-year-field');
+  if (yf) yf.style.display = val === 'yes' ? 'flex' : 'none';
+}
 function setCMS(type) {
   document.getElementById('wp-audit').style.display = type === 'wordpress' ? 'block' : 'none';
   document.getElementById('other-audit').style.display = type === 'other' ? 'block' : 'none';
